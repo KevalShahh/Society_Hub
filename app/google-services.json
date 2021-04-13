@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "349845706835",
+    "project_id": "society-hub-57825",
+    "storage_bucket": "society-hub-57825.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349845706835:android:0053ebe642bd378f2b4ea6",
+        "android_client_info": {
+          "package_name": "com.example.societyhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349845706835-o9alh0gu20k8g9a1efpu7gvi4fu356jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrbrCmDfG8OGm-FFOwWhnqieWyZpyFYYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349845706835-o9alh0gu20k8g9a1efpu7gvi4fu356jq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

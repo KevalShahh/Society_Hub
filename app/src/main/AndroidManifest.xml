@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.societyhub">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/societyhubicon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.teal">
+        <activity android:name=".CreateNoticeChairmanSide"></activity>
+        <activity android:name=".MemberListChairmanSide" />
+        <!--<activity
+            android:name=".MainActivity2"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.teal.NoActionBar" />-->
+        <activity android:name=".NoticeUserSide" />
+        <activity android:name=".EventsUserSide" />
+        <activity android:name=".MaintenanceUserSide" />
+        <activity android:name=".ContactChairmanUserSide" />
+        <activity android:name=".UserEditProfile" />
+        <activity android:name=".User">
+
+        </activity>
+        <activity android:name=".NoticeInfoReceivedChairmanSide" />
+        <activity android:name=".CustomNoticeReceivedList" />
+        <activity android:name=".CustomNoticeSentList" />
+        <activity android:name=".NoticiesChairmanSide" />
+        <activity android:name=".CreateEventsChairmanSide" />
+        <activity android:name=".EventsChairmanSide" />
+        <activity android:name=".CustomMemberInfo" />
+        <activity android:name=".CreateMaintenanceChairmanSide" />
+        <activity android:name=".MaintenanceListChairmanSide" />
+        <activity android:name=".EventPaymentHistoryChairmanSide" />
+        <activity android:name=".MemberInfoChairmanSide" />
+        <activity android:name=".MembersList" />
+        <activity android:name=".ChairmanEditProfile" />
+        <activity android:name=".ChairmanMyProfile" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Chairman" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".CustomCreateNoticeAdmin" />
+        <activity android:name=".AdminCreateNotice" />
+        <activity android:name=".CustomNoticeInformationAdmin" />
+        <activity android:name=".AdminNoticeInformation" />
+        <activity android:name=".Admin_Notice" />
+        <activity android:name=".ChairmanMaintenancePaymentNotPaid" />
+        <activity android:name=".ChairmanMaintenancePaymentPaid" />
+        <activity android:name=".CustomMaintenanceChairmanDetails" />
+        <activity android:name=".CustomMaintenanceChairman" />
+        <activity android:name=".ChairmanEventDetailsNotRegistered" />
+        <activity android:name=".ChairmanEventDetailsRegistered" />
+        <activity android:name=".CustomEventChairman" />
+        <activity android:name=".viewchairmanpaymentinfo" />
+        <activity android:name=".SocietyChairmanPaymentInfo" />
+        <activity android:name=".Chairmen" />
+        <activity android:name=".SocietyMemberInformation" />
+    </application>
+
+</manifest>
