@@ -31,6 +31,7 @@ class CreateEventsChairmanSide : AppCompatActivity() {
                     startActivity(Intent(this,EventsChairmanSide::class.java))
                 }
             }
+
         }
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item_chairmen_block"
+        android:title="block"
+        />
+    <item android:id="@+id/item_chairmen_unblock"
+        android:title="unblock"
+        android:visible="false"
+        />
+</menu>

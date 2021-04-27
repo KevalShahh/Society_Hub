@@ -13,10 +13,7 @@ import com.google.android.material.card.MaterialCardView
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-lateinit var textView:TextView
-lateinit var maintenance:MaterialCardView
-lateinit var event:MaterialCardView
-lateinit var notice:MaterialCardView
+
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
@@ -26,6 +23,10 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var textView: TextView
+    lateinit var maintenance: MaterialCardView
+    lateinit var event:MaterialCardView
+    lateinit var notice:MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,28 +35,31 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView=view.findViewById(R.id.contact_chairman_user_side)
         maintenance=view.findViewById(R.id.maintenance_card_view_user_side)
         event=view.findViewById(R.id.event_card_view_user_side)
         notice=view.findViewById(R.id.notice_card_view_user_side)
-        textView.setOnClickListener {
-            startActivity(Intent(context,ContactChairmanUserSide::class.java))
-        }
-        maintenance.setOnClickListener {
-            startActivity(Intent(context,MaintenanceUserSide::class.java))
-        }
+
         event.setOnClickListener {
             startActivity(Intent(context,EventsUserSide::class.java))
         }
         notice.setOnClickListener {
             startActivity(Intent(context,NoticeUserSide::class.java))
         }
+        maintenance.setOnClickListener {
+            startActivity(Intent(context,MaintenanceUserSide::class.java))
+        }
+        textView.setOnClickListener {
+            startActivity(Intent(context,ContactChairmanUserSide::class.java))
+        }
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }

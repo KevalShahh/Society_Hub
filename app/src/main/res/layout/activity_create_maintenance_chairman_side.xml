@@ -47,12 +47,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Amount"
+        android:inputType="number"
         android:id="@+id/maintenance_amount_chairman_side"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Late Charges"
+        android:inputType="number"
         android:id="@+id/maintenance_late_charges_chairman_side"
         />
     <EditText

@@ -1,6 +1,5 @@
 package com.example.societyhub
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
-class FirebaseRecyclerAdapter(val context: Context,options: FirestoreRecyclerOptions<EventModel>) : FirestoreRecyclerAdapter<EventModel, EventViewHolder>(options) {
+class FirebaseRecyclerAdapter(val context: EventsChairmanSide, options: FirestoreRecyclerOptions<EventModel>) : FirestoreRecyclerAdapter<EventModel, EventViewHolder>(options) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val view=LayoutInflater.from(context).inflate(R.layout.activity_custom_event_chairman,parent,false)
         return EventViewHolder(view)

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.societyhub">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -8,20 +12,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.teal">
-        <activity android:name=".CreateNoticeChairmanSide"></activity>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity android:name=".CustomSocietiesLayout"></activity>
+        <activity android:name=".AdminUpdateSociety" />
+        <activity android:name=".Societies"/>
+        <activity android:name=".Society_Information"/>
+        <activity android:name=".AdminCreateSocieties" />
+        <activity android:name=".CreateNoticeChairmanSide" />
         <activity android:name=".MemberListChairmanSide" />
-        <!--<activity
-            android:name=".MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.teal.NoActionBar" />-->
         <activity android:name=".NoticeUserSide" />
         <activity android:name=".EventsUserSide" />
         <activity android:name=".MaintenanceUserSide" />
         <activity android:name=".ContactChairmanUserSide" />
         <activity android:name=".UserEditProfile" />
-        <activity android:name=".User">
-
+        <activity android:name=".User" >
         </activity>
         <activity android:name=".NoticeInfoReceivedChairmanSide" />
         <activity android:name=".CustomNoticeReceivedList" />
@@ -37,19 +44,24 @@
         <activity android:name=".MembersList" />
         <activity android:name=".ChairmanEditProfile" />
         <activity android:name=".ChairmanMyProfile" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Chairman" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".Chairman" >
+
+        </activity>
+        <activity android:name=".Admin" />
+        <activity android:name=".Chairmen" />
         <activity android:name=".CustomCreateNoticeAdmin" />
+        <activity android:name=".ViewChairmanPaymentInfo" />
         <activity android:name=".AdminCreateNotice" />
         <activity android:name=".CustomNoticeInformationAdmin" />
         <activity android:name=".AdminNoticeInformation" />
-        <activity android:name=".Admin_Notice" />
+        <activity android:name=".AdminNotice" />
         <activity android:name=".ChairmanMaintenancePaymentNotPaid" />
         <activity android:name=".ChairmanMaintenancePaymentPaid" />
         <activity android:name=".CustomMaintenanceChairmanDetails" />
@@ -57,9 +69,7 @@
         <activity android:name=".ChairmanEventDetailsNotRegistered" />
         <activity android:name=".ChairmanEventDetailsRegistered" />
         <activity android:name=".CustomEventChairman" />
-        <activity android:name=".viewchairmanpaymentinfo" />
         <activity android:name=".SocietyChairmanPaymentInfo" />
-        <activity android:name=".Chairmen" />
         <activity android:name=".SocietyMemberInformation" />
     </application>
 

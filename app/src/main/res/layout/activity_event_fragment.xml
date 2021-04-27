@@ -5,17 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".viewchairmanpaymentinfo">
-    <com.google.android.material.tabs.TabLayout
+    tools:context=".EventFragment">
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tablayout_viewchairman"
-        android:background="@color/teal_700"
-        />
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewpager_viewchairman"
-        android:background="@color/teal_700"
-        />
+        android:id="@+id/rv_admin_event_fragment"/>
+
 </LinearLayout>

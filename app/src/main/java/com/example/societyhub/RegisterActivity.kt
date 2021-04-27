@@ -18,26 +18,37 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
+        viewBinding.tvLogin.setOnClickListener {
+            /*val intent= Intent(this,MainActivity::class.java)
+            startActivity(intent)*/
+            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+        }
         viewBinding.btnRegister.setOnClickListener {
             registerUser()
         }
     }
 
     private fun registerUser() {
-        val email = viewBinding.etEmail.text.toString()
-        val pass = viewBinding.etPass.text.toString()
+        var email = viewBinding.etEmail.text.toString()
+        var pass = viewBinding.etPass.text.toString()
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(this, "Registerd", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show()
                 val user = UserModel(email = email, password = pass)
                 storeUser(user)
-                startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+                /* startActivity(Intent(this@RegisterActivity, MainActivity::class.java))*/
             } else Toast.makeText(this, "${it.exception}", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun storeUser(user: UserModel) {
+        var fname=viewBinding.etFname.text.toString()
+        var lname=viewBinding.etLname.text.toString()
+        var email=viewBinding.etEmail.text.toString()
+        var mobile=viewBinding.etMob.text.toString()
+        var flat=viewBinding.etHouse.text.toString()
+        var password=viewBinding.etPass.text.toString()
+        var user=UserModel(fname,lname,email,mobile,flat,password)
         FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(this, "User Stored", Toast.LENGTH_SHORT).show()
