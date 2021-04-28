@@ -39,25 +39,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/admin_society_information_house_no"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/admin_create_society_line1"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:id="@+id/et_admin_society_information_house_no"
-                    android:hint="House No."/>
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/admin_society_information_flat"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/admin_society_information_house_no"
+                app:layout_constraintTop_toBottomOf="@+id/admin_create_society_line1"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

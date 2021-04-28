@@ -14,7 +14,6 @@ class MaintenanceModel(
         var createdAt: Timestamp = Timestamp.now()
         )
 {
-
         fun getCreatedDateFormat(): String {
                 return SimpleDateFormat("hh:mm a (dd/MM/yyyy)", Locale.ENGLISH).format(createdAt.toDate())
         }

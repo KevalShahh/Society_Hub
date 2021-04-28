@@ -29,7 +29,6 @@ class FireStoreRecycleAdapter(val context: Context, options: FirestoreRecyclerOp
                 when (item.itemId) {
                     R.id.item_update -> {
                         var intent = Intent(context, AdminUpdateSociety::class.java)
-                        intent.putExtra("houseno", model.houseno)
                         intent.putExtra("flat", model.flat)
                         intent.putExtra("area", model.area)
                         intent.putExtra("city", model.city)
@@ -95,7 +94,6 @@ class FireStoreRecycleAdapter(val context: Context, options: FirestoreRecyclerOp
         }
         holder.textInputLayout.setOnClickListener {
             var intent=Intent(context,Society_Information::class.java)
-            intent.putExtra("house",model.houseno)
             intent.putExtra("society_name",model.flat)
             intent.putExtra("address",model.area+","+model.city+","+model.state+","+model.country+"-"+model.pincode)
             intent.putExtra("chairman_name",model.chairmanfname +""+ model.chairmanlname)

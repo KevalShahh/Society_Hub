@@ -22,15 +22,15 @@ class ChairmanEditProfile : AppCompatActivity() {
         viewBinding.chairmanLastNameMyProfile.setText(intent.getStringExtra("chairmanlname"))
         viewBinding.chairmanEmailMyProfile.setText(intent.getStringExtra("chairmanemail"))
         viewBinding.chairmanMobileMyProfile.setText(intent.getStringExtra("chairmanmobile"))
-        viewBinding.chairmanHouseNumMyProfile.setText(intent.getStringExtra("chairmanhouse"))
+        viewBinding.chairmanHouseNumMyProfile.setText(intent.getStringExtra("chairmanhouseno"))
 
         viewBinding.chairmanUpdateMyProfile.setOnClickListener {
             var map1= HashMap<String,String>()
             map1.put("chairmanfname",viewBinding.chairmanFirstNameMyProfile.getText().toString())
-            map1.put("chiarmanlname",viewBinding.chairmanLastNameMyProfile.text.toString())
-            map1.put("chiarmanemail",viewBinding.chairmanEmailMyProfile.text.toString())
+            map1.put("chairmanlname",viewBinding.chairmanLastNameMyProfile.text.toString())
+            map1.put("chairmanemail",viewBinding.chairmanEmailMyProfile.text.toString())
             map1.put("chairmanmobile",viewBinding.chairmanMobileMyProfile.getText().toString())
-            map1.put("chairmanhouse",viewBinding.chairmanHouseNumMyProfile.text.toString())
+            map1.put("chairmanhouseno",viewBinding.chairmanHouseNumMyProfile.text.toString())
             if (cemail != null) {
                 FirebaseFirestore.getInstance().collection("Users").document(cemail).update(map1 as Map<String, Any>).addOnCompleteListener {
                     if (it.isSuccessful){

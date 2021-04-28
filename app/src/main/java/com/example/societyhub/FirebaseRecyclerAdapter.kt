@@ -1,5 +1,6 @@
 package com.example.societyhub
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.textfield.TextInputLayout
 
 class FirebaseRecyclerAdapter(val context: EventsChairmanSide, options: FirestoreRecyclerOptions<EventModel>) : FirestoreRecyclerAdapter<EventModel, EventViewHolder>(options) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
@@ -22,6 +24,17 @@ class FirebaseRecyclerAdapter(val context: EventsChairmanSide, options: Firestor
         holder.textview5.text=model.eventStartTime
         holder.textview6.text=model.eventEndTime
         holder.textview7.text=model.eventAmount
+        holder.textInputLayout.setOnClickListener {
+            var intent=Intent(context,EventNotRegisteredChairmanSide::class.java)
+            intent.putExtra("eventTitle",model.eventTitle)
+            intent.putExtra("eventDescription",model.eventDescription)
+            intent.putExtra("eventStartDate",model.eventStartDate)
+            intent.putExtra("eventStartTime",model.eventStartTime)
+            intent.putExtra("eventEndDate",model.eventEndDate)
+            intent.putExtra("eventEndTime",model.eventEndTime)
+            intent.putExtra("eventCharges",model.eventAmount)
+            context.startActivity(intent)
+        }
     }
 
 }
@@ -34,4 +47,5 @@ class EventViewHolder(view: View) : RecyclerView.ViewHolder(view){
     var textview5:TextView=view.findViewById(R.id.event_start_time)
     var textview6:TextView=view.findViewById(R.id.event_end_time)
     var textview7:TextView=view.findViewById(R.id.event_charge)
+    var textInputLayout:TextInputLayout=view.findViewById(R.id.til_chairman_event)
 }

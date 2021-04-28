@@ -19,7 +19,6 @@ class AdminUpdateSociety : AppCompatActivity() {
         viewBinding = ActivityAdminUpdateSocietyBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
         val flat = intent.getStringExtra("flat")
-        viewBinding.edtAdminUpdateSocietyHouseNo.setText(intent.getStringExtra("houseno"))
         viewBinding.edtAdminUpdateSocietyFlat.setText(intent.getStringExtra("flat"))
         viewBinding.edtAdminUpdateSocietyArea.setText(intent.getStringExtra("area"))
         viewBinding.edtAdminUpdateSocietyCity.setText(intent.getStringExtra("city"))
@@ -29,7 +28,6 @@ class AdminUpdateSociety : AppCompatActivity() {
         viewBinding.btnAdminUpdateSociety.setOnClickListener {
             val map:Map<String,String>
             map=HashMap()
-            map.put("houseno",viewBinding.edtAdminUpdateSocietyHouseNo.text.toString())
             map.put("flat",viewBinding.edtAdminUpdateSocietyFlat.text.toString())
             map.put("area",viewBinding.edtAdminUpdateSocietyArea.text.toString())
             map.put("city",viewBinding.edtAdminUpdateSocietyCity.text.toString())

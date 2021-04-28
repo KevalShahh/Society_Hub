@@ -4,84 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="7dp"
-    tools:context=".CustomMaintenanceChairmanDetails">
+    tools:context=".MaintenanceNotPaidChairmanSide">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_background"
-        android:id="@+id/til_custom_maintenance_details_chairman_side"
         >
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:text="Payment Pending"
             android:layout_margin="10dp"
-            android:layout_gravity="center"
             android:textColor="@color/teal_700"
-            android:id="@+id/chairman_maintenance_month_year"
+            android:layout_gravity="center"
             />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Due Date:"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/chairman_side_maintenance_np_payment_details_month"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Maintenance Month"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:id="@+id/chairman_side_maintenance_np_payment_details_amount"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount Due"
+            android:layout_margin="5dp"
+            />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chairman_side_maintenance_np_payment_details_date"
             android:layout_margin="5dp"
             android:textSize="20dp"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/chairman_maintenance_due_date"
-            android:textSize="20dp"
+            android:text="Due Date"
             android:layout_margin="5dp"
             />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount:"
+            android:id="@+id/chairman_side_maintenance_np_payment_details_late_charges"
             android:layout_margin="5dp"
             android:textSize="20dp"
             />
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/chairman_maintenance_amount"
-            android:textSize="20dp"
+            android:text="Late Charges"
             android:layout_margin="5dp"
             />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15dp"
-            android:layout_margin="5dp"
-            android:id="@+id/chairman_maintenance_requested_date_and_time"
+            android:layout_gravity="center"
+            android:text="PAY NOW"
+            android:id="@+id/btn_chairman_side_maintenance_np_payment_details_pay_now"
             />
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:id="@+id/chairman_maintenance_paid_or_not"
-            />
-        </LinearLayout>
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

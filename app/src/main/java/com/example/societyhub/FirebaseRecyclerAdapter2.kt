@@ -1,6 +1,7 @@
 package com.example.societyhub
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.textfield.TextInputLayout
 
 class FirebaseRecyclerAdapter2(var context: Context, rvoptions: FirestoreRecyclerOptions<MaintenanceModel>): FirestoreRecyclerAdapter<MaintenanceModel, MaintenanceViewHolder>(rvoptions) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceViewHolder {
@@ -22,6 +24,14 @@ class FirebaseRecyclerAdapter2(var context: Context, rvoptions: FirestoreRecycle
         holder.textView2.text=model.DueDate
         holder.textView3.text=model.Amount
         holder.textView4.text=model.getCreatedDateFormat()
+        holder.textInputLayout.setOnClickListener {
+            var intent=Intent(context,MaintenanceNotPaidChairmanSide::class.java)
+            intent.putExtra("MaintenanceMonth",model.MaintenanceMonth)
+            intent.putExtra("AmountDue",model.Amount)
+            intent.putExtra("DueDate",model.DueDate)
+            intent.putExtra("LateCharges",model.LateCharges)
+            context.startActivity(intent)
+        }
     }
 
 }
@@ -31,4 +41,5 @@ class MaintenanceViewHolder(view:View):RecyclerView.ViewHolder(view) {
     val textView2:TextView=view.findViewById(R.id.chairman_maintenance_due_date)
     val textView3:TextView=view.findViewById(R.id.chairman_maintenance_amount)
     val textView4:TextView=view.findViewById(R.id.chairman_maintenance_requested_date_and_time)
+    var textInputLayout:TextInputLayout=view.findViewById(R.id.til_custom_maintenance_details_chairman_side)
 }

@@ -2,7 +2,6 @@
 package com.example.societyhub
 
 class UserModel1(
-        var houseno: String = "",
         var flat: String = "",
         var area: String = "",
         var city: String = "",

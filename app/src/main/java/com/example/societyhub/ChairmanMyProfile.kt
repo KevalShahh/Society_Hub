@@ -24,11 +24,11 @@ class ChairmanMyProfile : AppCompatActivity() {
                 if(it.exists()){
                     var userModel1=it.toObject(UserModel1::class.java)
                     if (userModel1 != null) {
-                        viewBinding.chairmanNameProfile.text=(userModel1.chairmanfname+userModel1.chairmanlname)
+                        viewBinding.chairmanNameProfile.text=(userModel1.chairmanfname + "" + userModel1.chairmanlname)
                         viewBinding.societyNameMyProfileChairman.text=userModel1.flat
                         viewBinding.emailMyProfileChairman.text=userModel1.chairmanemail
                         viewBinding.mobileMyProfileChairman.text=userModel1.chairmanmobile
-                        viewBinding.societyAddressMyProfileChairman.text=(userModel1.area+","+userModel1.city+","+userModel1.country+","+userModel1.pincode)
+                        viewBinding.societyAddressMyProfileChairman.text=(userModel1.chairmanhouseno +","+ userModel1.area+","+userModel1.city+","+userModel1.country+","+userModel1.pincode)
                     }
                 }
             }
@@ -44,7 +44,7 @@ class ChairmanMyProfile : AppCompatActivity() {
                         intent.putExtra("chairmanlname",userModel1.chairmanlname)
                         intent.putExtra("chairmanemail",userModel1.chairmanemail)
                         intent.putExtra("chairmanmobile",userModel1.chairmanmobile)
-                        intent.putExtra("chairmanhouse",userModel1.chairmanhouseno)
+                        intent.putExtra("chairmanhouseno",userModel1.chairmanhouseno)
                         intent.putExtra("flat",userModel1.flat)
                         startActivity(intent)
                     }

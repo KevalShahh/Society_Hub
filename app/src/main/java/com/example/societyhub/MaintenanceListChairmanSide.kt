@@ -7,6 +7,7 @@ import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
@@ -52,14 +53,6 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
         super.onStop()
         firebaseRecyclerAdapter.stopListening()
     }
-    private fun processSearch(newText: String?) {
-        val options:FirestoreRecyclerOptions<MaintenanceModel>
-        options=FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(FirebaseFirestore.getInstance().collection("Maintenance")
-                . orderBy("maintenanceMonth").startAt(newText).endAt(newText+"\uf8ff"),MaintenanceModel::class.java).build()
-        firebaseRecyclerAdapter= FirebaseRecyclerAdapter2(this,options)
-        firebaseRecyclerAdapter.startListening()
-        viewBinding.rvChairmanMaintenanceView.adapter=firebaseRecyclerAdapter
-    }
 
     private fun monthPicker() {
         var c=Calendar.getInstance()
@@ -74,17 +67,7 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
                     cal.set(Calendar.YEAR, year)
                     cal.set(Calendar.MONTH, month)
                     viewBinding.tilEdtMonthMaintenance.setText(SimpleDateFormat("MMMM YYYY").format(cal.time).toString())
-                    
-                    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                        override fun onQueryTextSubmit(query: String?): Boolean {
-                            processSearch(query)
-                            return false
-                        }
-                        override fun onQueryTextChange(newText: String?): Boolean {
-                            processSearch(newText)
-                            return false
-                        }
-                    })
+                    getMaintenanceList(viewBinding.tilEdtMonthMaintenance.text.toString())
                 },year,month,day)
 
         (dialog.datePicker as ViewGroup).findViewById<ViewGroup>(
@@ -93,5 +76,32 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
 
         dialog.show()
 
+    }
+
+    private fun getMaintenanceList(maintenanceMonth: String) {
+
+       /* val options:FirestoreRecyclerOptions<MaintenanceModel>
+        options=FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(FirebaseFirestore.getInstance().collection("Maintenance")
+                .orderBy("maintenanceMonth"),MaintenanceModel::class.java).build()
+        firebaseRecyclerAdapter= FirebaseRecyclerAdapter2(this,options)
+        firebaseRecyclerAdapter.startListening()
+        viewBinding.rvChairmanMaintenanceView.adapter=firebaseRecyclerAdapter
+        firebaseRecyclerAdapter.notifyDataSetChanged()*/
+
+        var model=MaintenanceModel()
+        val query = FirebaseFirestore.getInstance()
+                .collection("Maintenance")
+                .whereEqualTo(model.MaintenanceMonth,
+                        maintenanceMonth)
+                .orderBy(model.getCreatedDateFormat(),Query.Direction.DESCENDING)
+
+        val rvOptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
+                .setQuery(query, MaintenanceModel::class.java).build()
+
+        firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvOptions)
+        viewBinding.rvChairmanMaintenanceView.adapter = firebaseRecyclerAdapter
+        firebaseRecyclerAdapter?.stopListening()
+        firebaseRecyclerAdapter?.startListening()
+        firebaseRecyclerAdapter?.notifyDataSetChanged()
     }
 }
