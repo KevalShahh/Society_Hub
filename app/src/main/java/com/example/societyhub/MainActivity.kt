@@ -18,7 +18,12 @@ class MainActivity : AppCompatActivity()  {
 
         viewBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
+        viewBinding.tvRegister.setOnClickListener {
+            startActivity(Intent(this,RegisterActivity::class.java))
+        }
+        viewBinding.tvForgot.setOnClickListener {
+            startActivity(Intent(this,ForgetPassword::class.java))
+        }
         viewBinding.btnLogin.setOnClickListener {
             loginUser()
         }
@@ -29,27 +34,15 @@ class MainActivity : AppCompatActivity()  {
         val pass = viewBinding.edtPassword.text.toString()
         val regex="^[\\w-_\\.+]*[\\w-\\.]\\.(chairman)\\@([\\w]+\\.)+[\\w]+[\\w]$"
         var pattern=Pattern.compile(regex)
-      //  var matcher=pattern.matcher(email)
-       /* if (matcher.matches().toString().equals("true"))
-        {
-            Toast.makeText(this, "logged in", Toast.LENGTH_SHORT).show()
-            Log.d("TAG", "loginUser: " + matcher.matches().toString())
-        }
-        else{
-            Log.d("TAG", "loginUser: "+"false")
-        }
-*/
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener {
                 if (it.isSuccessful) {
                     if (email=="admin@gmail.com") {
                         Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, Admin::class.java))
-                      //  Log.d("TAG", "loginUser: " + matcher.matches().toString())
                     }
                     else if (pattern.matcher(email).matches()){
                         Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                           // Log.d("TAG", "loginUser: " + matcher.matches().toString())
                         startActivity(Intent(this, Chairman::class.java))
                     }
                 }

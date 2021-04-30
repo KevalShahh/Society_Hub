@@ -122,6 +122,4 @@
             android:layout_margin="15dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 </LinearLayout>

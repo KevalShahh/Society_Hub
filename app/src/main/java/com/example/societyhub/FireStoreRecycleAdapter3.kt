@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -12,6 +14,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.core.View
 
 class FireStoreRecycleAdapter3(var context: Context , rvoptions: FirestoreRecyclerOptions<UserModel1>) : FirestoreRecyclerAdapter<UserModel1, NoticeSendViewHolder>(rvoptions) {
+   public var arraylist=ArrayList<String>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeSendViewHolder {
        var view= LayoutInflater.from(context).inflate(R.layout.activity_custom_create_notice_admin,parent,false)
         return NoticeSendViewHolder(view)
@@ -21,6 +25,17 @@ class FireStoreRecycleAdapter3(var context: Context , rvoptions: FirestoreRecycl
        holder.textView.text=" "+model.chairmanfname+" "+model.chairmanlname
        holder.textView1.text=" "+model.chairmanhouseno+","+model.flat
         holder.textView2.text=model.chairmanmobile
+        holder.checkbox.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if(isChecked){
+                    arraylist.add(model.chairmanemail)
+                }
+                else{
+                    arraylist.remove(model.chairmanemail)
+                }
+            }
+        })
+
         holder.textView2.setOnClickListener {
             var intent:Intent= Intent(Intent.ACTION_CALL,Uri.parse("tel:"+model.chairmanmobile))
             context.startActivity(intent)
@@ -46,4 +61,6 @@ class NoticeSendViewHolder(itemView:android.view.View):RecyclerView.ViewHolder(i
 var textView:TextView=itemView.findViewById(R.id.rv_admin_create_notice_name_et)
 var textView1:TextView=itemView.findViewById(R.id.rv_admin_create_notice_address_et)
 var textView2:TextView=itemView.findViewById(R.id.rv_admin_create_notice_phone_et)
+    var checkbox:CheckBox=itemView.findViewById(R.id.rv_admin_create_notice_checkbox)
+
 }

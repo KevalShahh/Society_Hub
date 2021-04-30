@@ -37,30 +37,42 @@ class CreateMaintenanceChairmanSide : AppCompatActivity() {
         }
 
         viewBinding.maintenanceMonthChairmanSide.setOnClickListener {
-            monthPicker()
+            var c= Calendar.getInstance()
+            var year=c.get(Calendar.YEAR)
+            var month=c.get(Calendar.MONTH)
+            var day=c.get(Calendar.DAY_OF_MONTH)
+
+            var dialog= DatePickerDialog(this,
+                    AlertDialog.THEME_HOLO_LIGHT,
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        val cal = Calendar.getInstance()
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        viewBinding.maintenanceMonthChairmanSide.setText(SimpleDateFormat("MMMM YYYY").format(cal.time).toString())
+                    },year,month,day)
+
+            (dialog.datePicker as ViewGroup).findViewById<ViewGroup>(
+                    Resources.getSystem().getIdentifier("day", "id", "android")
+            ).visibility = View.GONE
+
+            dialog.show()
         }
-    }
+        viewBinding.maintenanceDueDateChairmanSide.setOnClickListener {
+            var c= Calendar.getInstance()
+            var year=c.get(Calendar.YEAR)
+            var month=c.get(Calendar.MONTH)
+            var date=c.get(Calendar.DATE)
 
-    private fun monthPicker() {
-       // TODO("Not yet implemented")
-        var c= Calendar.getInstance()
-        var year=c.get(Calendar.YEAR)
-        var month=c.get(Calendar.MONTH)
-        var day=c.get(Calendar.DAY_OF_MONTH)
-
-        var dialog= DatePickerDialog(this,
-                AlertDialog.THEME_HOLO_DARK,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    val cal = Calendar.getInstance()
-                    cal.set(Calendar.YEAR, year)
-                    cal.set(Calendar.MONTH, month)
-                    viewBinding.maintenanceMonthChairmanSide.setText(SimpleDateFormat("MMMM YYYY").format(cal.time).toString())
-                },year,month,day)
-
-        (dialog.datePicker as ViewGroup).findViewById<ViewGroup>(
-                Resources.getSystem().getIdentifier("day", "id", "android")
-        ).visibility = View.GONE
-
-        dialog.show()
+            var dialog= DatePickerDialog(this,
+                    AlertDialog.THEME_HOLO_LIGHT,
+                    DatePickerDialog.OnDateSetListener { view, year, month, date ->
+                        val cal = Calendar.getInstance()
+                        cal.set(Calendar.DATE,date)
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        viewBinding.maintenanceDueDateChairmanSide.setText(SimpleDateFormat("d/MM/YYYY").format(cal.time).toString())
+                    },year,month,date)
+            dialog.show()
+        }
     }
 }

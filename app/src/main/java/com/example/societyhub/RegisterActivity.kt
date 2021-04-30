@@ -18,9 +18,8 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
         viewBinding.tvLogin.setOnClickListener {
-            /*val intent= Intent(this,MainActivity::class.java)
-            startActivity(intent)*/
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
         }
         viewBinding.btnRegister.setOnClickListener {
@@ -36,7 +35,6 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show()
                 val user = UserModel(email = email, password = pass)
                 storeUser(user)
-                /* startActivity(Intent(this@RegisterActivity, MainActivity::class.java))*/
             } else Toast.makeText(this, "${it.exception}", Toast.LENGTH_SHORT).show()
         }
     }
@@ -49,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         var flat=viewBinding.etHouse.text.toString()
         var password=viewBinding.etPass.text.toString()
         var user=UserModel(fname,lname,email,mobile,flat,password)
-        FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
+        FirebaseFirestore.getInstance().collection("Users").document(email).set(user).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(this, "User Stored", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, "" + it.exception, Toast.LENGTH_SHORT).show()

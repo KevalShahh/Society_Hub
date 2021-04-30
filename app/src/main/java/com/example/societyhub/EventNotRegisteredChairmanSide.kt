@@ -20,7 +20,15 @@ class EventNotRegisteredChairmanSide : AppCompatActivity() {
         viewBinding.chairmanSideEventEndTimeNotRegistered.text=intent.getStringExtra("eventEndTime")
         viewBinding.chairmanSideEventChargesNotRegistered.text=intent.getStringExtra("eventCharges")
         viewBinding.btnAttendEventChairmanSide.setOnClickListener {
-//            startActivity(Intent(this,))
+            var intent=Intent(this,AttendEventNotRegisteredChairmanSide::class.java)
+            intent.putExtra("eventTitle",viewBinding.chairmanSideEventNameNotRegistered.text)
+            intent.putExtra("eventDescription",viewBinding.chairmanSideEventInstructionNotRegistered.text)
+            intent.putExtra("eventStartDate",viewBinding.chairmanSideEventStartDateNotRegistered.text)
+            intent.putExtra("eventStartTime",viewBinding.chairmanSideEventStartTimeNotRegistered.text)
+            intent.putExtra("eventEndDate", viewBinding.chairmanSideEventEndDateNotRegistered.text)
+            intent.putExtra("eventEndTime", viewBinding.chairmanSideEventEndTimeNotRegistered.text)
+            intent.putExtra("eventCharges",viewBinding.chairmanSideEventChargesNotRegistered.text)
+            startActivity(intent)
         }
     }
 }

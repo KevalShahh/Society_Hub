@@ -41,6 +41,7 @@
         android:drawableStart="@drawable/ic_baseline_calendar_today_24"
         android:layout_margin="10dp"
         android:hint="Start Date"
+        android:focusable="false"
         android:id="@+id/event_start_date_chairman_side"
         />
     <com.google.android.material.textfield.TextInputEditText
@@ -49,6 +50,7 @@
         android:id="@+id/event_start_time_chairman_side"
         android:layout_margin="10dp"
         android:layout_weight="1"
+        android:focusable="false"
         android:drawableStart="@drawable/ic_baseline_access_time_24"
         android:hint="Start Time"
         />
@@ -73,6 +75,7 @@
             android:drawableStart="@drawable/ic_baseline_calendar_today_24"
             android:layout_margin="10dp"
             android:hint="End Date"
+            android:focusable="false"
             android:id="@+id/event_end_date_chairman_side"
             />
         <com.google.android.material.textfield.TextInputEditText
@@ -81,6 +84,7 @@
             android:id="@+id/event_end_time_chairman_side"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:focusable="false"
             android:drawableStart="@drawable/ic_baseline_access_time_24"
             android:hint="End Time"
             />
@@ -103,6 +107,7 @@
         android:hint="Amount"
         android:layout_margin="10dp"
         android:textSize="20dp"
+        android:inputType="number"
         android:id="@+id/event_amount_chairman_side"
         />
     <RadioGroup

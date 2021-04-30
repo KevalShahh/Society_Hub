@@ -35,12 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Maintenance Month"
+        android:focusable="false"
         android:id="@+id/maintenance_month_chairman_side"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Due Date"
+        android:focusable="false"
         android:id="@+id/maintenance_due_date_chairman_side"
         />
     <EditText

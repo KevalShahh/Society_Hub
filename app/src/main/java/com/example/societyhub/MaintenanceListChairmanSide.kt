@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -20,23 +21,23 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MaintenanceListChairmanSide : AppCompatActivity() {
-    lateinit var viewBinding:ActivityMaintenanceListChairmanSideBinding
-    lateinit var query:Query
-    lateinit var firebaseRecyclerAdapter:FirebaseRecyclerAdapter2
-    lateinit var searchView:SearchView
+    lateinit var viewBinding: ActivityMaintenanceListChairmanSideBinding
+    lateinit var query: Query
+    lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
+    lateinit var searchView: SearchView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding= ActivityMaintenanceListChairmanSideBinding.inflate(LayoutInflater.from(this))
+        viewBinding = ActivityMaintenanceListChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
 
-        query= FirebaseFirestore.getInstance().collection("Maintenance")
-        var rvoptions= FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query,MaintenanceModel::class.java).build()
-        firebaseRecyclerAdapter=FirebaseRecyclerAdapter2(this, rvoptions)
-        viewBinding.rvChairmanMaintenanceView.adapter=firebaseRecyclerAdapter
-        viewBinding.rvChairmanMaintenanceView.layoutManager= LinearLayoutManager(this)
+        query = FirebaseFirestore.getInstance().collection("Maintenance")
+        var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
+        firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvoptions)
+        viewBinding.rvChairmanMaintenanceView.adapter = firebaseRecyclerAdapter
+        viewBinding.rvChairmanMaintenanceView.layoutManager = LinearLayoutManager(this)
 
         viewBinding.fbCreateMaintenance.setOnClickListener {
-            startActivity(Intent(this,CreateMaintenanceChairmanSide::class.java))
+            startActivity(Intent(this, CreateMaintenanceChairmanSide::class.java))
         }
         viewBinding.tilEdtMonthMaintenance.setOnClickListener {
             monthPicker()
@@ -55,20 +56,20 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
     }
 
     private fun monthPicker() {
-        var c=Calendar.getInstance()
-        var year=c.get(Calendar.YEAR)
-        var month=c.get(Calendar.MONTH)
-        var day=c.get(Calendar.DAY_OF_MONTH)
+        var c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
 
-        var dialog=DatePickerDialog(this,
-                AlertDialog.THEME_HOLO_DARK,
+        var dialog = DatePickerDialog(this,
+                AlertDialog.THEME_HOLO_LIGHT,
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     val cal = Calendar.getInstance()
                     cal.set(Calendar.YEAR, year)
                     cal.set(Calendar.MONTH, month)
                     viewBinding.tilEdtMonthMaintenance.setText(SimpleDateFormat("MMMM YYYY").format(cal.time).toString())
                     getMaintenanceList(viewBinding.tilEdtMonthMaintenance.text.toString())
-                },year,month,day)
+                }, year, month, day)
 
         (dialog.datePicker as ViewGroup).findViewById<ViewGroup>(
                 Resources.getSystem().getIdentifier("day", "id", "android")
@@ -80,28 +81,17 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
 
     private fun getMaintenanceList(maintenanceMonth: String) {
 
-       /* val options:FirestoreRecyclerOptions<MaintenanceModel>
-        options=FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(FirebaseFirestore.getInstance().collection("Maintenance")
-                .orderBy("maintenanceMonth"),MaintenanceModel::class.java).build()
-        firebaseRecyclerAdapter= FirebaseRecyclerAdapter2(this,options)
-        firebaseRecyclerAdapter.startListening()
-        viewBinding.rvChairmanMaintenanceView.adapter=firebaseRecyclerAdapter
-        firebaseRecyclerAdapter.notifyDataSetChanged()*/
-
-        var model=MaintenanceModel()
-        val query = FirebaseFirestore.getInstance()
+        val options: FirestoreRecyclerOptions<MaintenanceModel>
+        options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
+                .setQuery(FirebaseFirestore.getInstance()
                 .collection("Maintenance")
-                .whereEqualTo(model.MaintenanceMonth,
-                        maintenanceMonth)
-                .orderBy(model.getCreatedDateFormat(),Query.Direction.DESCENDING)
-
-        val rvOptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
-                .setQuery(query, MaintenanceModel::class.java).build()
-
-        firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvOptions)
+                .orderBy("maintenanceMonth")
+                .startAt(maintenanceMonth)
+                .endAt(maintenanceMonth + "\uf8ff"), MaintenanceModel::class.java)
+                .build()
+        firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, options)
+        firebaseRecyclerAdapter.startListening()
         viewBinding.rvChairmanMaintenanceView.adapter = firebaseRecyclerAdapter
-        firebaseRecyclerAdapter?.stopListening()
-        firebaseRecyclerAdapter?.startListening()
-        firebaseRecyclerAdapter?.notifyDataSetChanged()
+        firebaseRecyclerAdapter.notifyDataSetChanged()
     }
 }

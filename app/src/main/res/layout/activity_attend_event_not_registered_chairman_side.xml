@@ -25,13 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="6dp"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event Start:"
-            android:textSize="25dp"
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,17 +40,18 @@
             android:textSize="25dp"
             />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event Start"
+        android:textSize="25dp"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event End:"
-            android:textSize="25dp"
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,24 +65,36 @@
             android:textSize="25dp"
             />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Event End"
+        android:textSize="25dp"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:orientation="horizontal"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Charges:"
-            android:textSize="25dp"
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
             android:id="@+id/chairman_side_attend_event_charges_not_registered"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text=" /PERSON"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Charges"
+        android:textSize="25dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,16 +102,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Number of Persons attending Event:"/>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:text="Number of Persons attending Event:"
+            android:textSize="16.8sp"
+            android:layout_marginTop="12dp"/>
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fabCustomSize="20dp"
+            android:id="@+id/decrement_integer"
+            android:layout_gravity="center"
             android:src="@drawable/ic_baseline_remove_24"
-            android:id="@+id/decrease_btn"
-            />
+            android:backgroundTint="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="1"
+            android:layout_gravity="center"
+            android:inputType="number"
+            android:id="@+id/chairman_side_tv_inc_dec_integer_attend_event_not_registered"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/increment_integer"
+            android:src="@drawable/ic_baseline_add_24"
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:inputType="number"
+        android:layout_marginTop="4dp"
+        android:id="@+id/chairman_side_tv_total_charges_attend_event_not_registered"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Charges"
+        android:textSize="25dp"/>
 </LinearLayout>

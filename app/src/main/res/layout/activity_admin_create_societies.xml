@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:id="@+id/et_admin_society_information_pincode"
+                    android:inputType="number"
                     android:hint="PinCode"/>
             </com.google.android.material.textfield.TextInputLayout>
             <View
@@ -211,6 +212,7 @@
                     android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_admin_create_society_chairman_email"
+                    android:inputType="textEmailAddress"
                     android:hint="Chairman Email Id"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -226,6 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:id="@+id/et_admin_create_society_chairman_mobile"
+                    android:inputType="phone"
                     android:hint="Chairman Mobile"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
