@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.teal"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CustomCreateMaintenance"></activity>
+        <activity android:name=".CustomMember"></activity>
+        <activity android:name=".CustomCreateMaintenance" />
         <activity android:name=".ViewMemberPaymentInfo" />
         <activity android:name=".CustomMemberChairmanSide" />
         <activity android:name=".AttendEventNotRegisteredChairmanSide" />

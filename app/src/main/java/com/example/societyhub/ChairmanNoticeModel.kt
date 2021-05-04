@@ -7,6 +7,7 @@ import java.util.*
 class ChairmanNoticeModel (
         var title:String="",
         var description:String="",
+        var useremail:String="",
         var createdAt: Timestamp = Timestamp.now()
 ) {
     fun getCreatedDateFormat(): String {
