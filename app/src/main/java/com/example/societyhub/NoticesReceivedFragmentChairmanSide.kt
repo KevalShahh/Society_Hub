@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -25,8 +27,9 @@ class NoticesReceivedFragmentChairmanSide : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var query:Query
-    lateinit var arrayList:FireStoreRecycleAdapter3
+    private lateinit var query: Query
+    private lateinit var firestorerecycleadapter:FireStoreRecycleAdapter4
+    private lateinit var recycleView:RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +41,33 @@ class NoticesReceivedFragmentChairmanSide : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var currentuser=FirebaseAuth.getInstance().currentUser
+        var email= currentuser?.email
+
+        recycleView=view.findViewById(R.id.rv_notices_received_chairman_side)
+        query=FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("chairmanemailid",email)
+        val rvoptions= FirestoreRecyclerOptions.Builder<AdminNoticeModel>().setQuery(query,AdminNoticeModel::class.java).build()
+        firestorerecycleadapter= context?.let { FireStoreRecycleAdapter4(it,rvoptions) }!!
+        recycleView.adapter= firestorerecycleadapter
+        recycleView.layoutManager=LinearLayoutManager(context)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notices_received_chairman_side, container, false)
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firestorerecycleadapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firestorerecycleadapter.stopListening()
     }
 
     companion object {

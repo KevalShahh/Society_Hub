@@ -34,17 +34,21 @@ class MainActivity : AppCompatActivity()  {
         val pass = viewBinding.edtPassword.text.toString()
         val regex="^[\\w-_\\.+]*[\\w-\\.]\\.(chairman)\\@([\\w]+\\.)+[\\w]+[\\w]$"
         var pattern=Pattern.compile(regex)
-
+        var model:UserModel1
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    if (email=="admin@gmail.com") {
-                        Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, Admin::class.java))
-                    }
-                    else if (pattern.matcher(email).matches()){
-                        Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, Chairman::class.java))
-                    }
+                        if (email == "admin@gmail.com") {
+                            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, Admin::class.java))
+                        }
+                        else if (pattern.matcher(email).matches()) {
+                            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, Chairman::class.java))
+                        }
+                    else{
+                            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this,User::class.java))
+                        }
                 }
         }
 

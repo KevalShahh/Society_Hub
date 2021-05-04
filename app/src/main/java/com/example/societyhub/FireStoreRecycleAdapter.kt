@@ -20,9 +20,9 @@ class FireStoreRecycleAdapter(val context: Context, options: FirestoreRecyclerOp
     }
     override fun onBindViewHolder(holder: SocietyViewHolder, position: Int, model: UserModel1) {
         holder.menu.setOnClickListener {
-            val popupMenu=PopupMenu(context,it)
-
-            popupMenu.menuInflater.inflate(R.menu.custom_layout_menu,popupMenu.menu)
+            if (model.status == "active"){
+            val popupMenu = PopupMenu(context, it)
+            popupMenu.menuInflater.inflate(R.menu.custom_layout_menu, popupMenu.menu)
             popupMenu.show()
             popupMenu.menu.findItem(R.id.item_unblock).setVisible(false)
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
@@ -37,77 +37,70 @@ class FireStoreRecycleAdapter(val context: Context, options: FirestoreRecyclerOp
                         intent.putExtra("pincode", model.pincode)
                         context.startActivity(intent)
                     }
-                    R.id.item_block->{
-                        popupMenu.menu.findItem(R.id.item_update).setVisible(false)
-                        popupMenu.menu.findItem(R.id.item_delete).setVisible(false)
-                        popupMenu.menu.findItem(R.id.item_block).setVisible(false)
-                        popupMenu.menu.findItem(R.id.item_unblock).setVisible(true)
+                    R.id.item_block -> {
+                        model.status = "blocked"
+                        holder.textView7.text = model.status
+                        var map=HashMap<String,String>()
+                        map.put("status",model.status)
+                        FirebaseFirestore.getInstance().collection("Users").document(model.chairmanemail).update(map as Map<String, Any>)
+                        FirebaseFirestore.getInstance().collection("Society").document(model.flat).update(map as Map<String, Any>)
                     }
-                    R.id.item_delete->{
+
+                    R.id.item_delete -> {
                         FirebaseFirestore.getInstance().collection("Society").document(model.flat).delete()
+                        FirebaseFirestore.getInstance().collection("Users").document(model.chairmanemail).delete()
                     }
-
-//                    R.id.item_block -> {
-//                        holder.textView7.text = "BLOCKED"
-//                    }
-//                    R.id.item_block -> {
-//                        holder.textView7.text = "BLOCKED"
-//                        var block: Boolean = false.also { popupMenu.menu.findItem(R.id.item_block).isVisible = false }
-//                        var update: Boolean = false.also { popupMenu.menu.findItem(R.id.item_update).isVisible = false }
-//                        var unblock: Boolean = true.also { popupMenu.menu.findItem(R.id.item_unblock).isVisible = true }
-//                        var delete: Boolean = true.also { popupMenu.menu.findItem(R.id.item_delete).isVisible = it }
-//
-////                        holder.item.isVisible = true
-////                        holder.item3.isVisible = false
-////                        holder.item2.isVisible = false
-////                        holder.item4.setVisible(true)
-//                    }
-                  /*  R.id.item_unblock -> {
-                        holder.textView7.text = "ACTIVE"
-                        var block: Boolean = true.also { popupMenu.menu.findItem(R.id.item_block).isVisible = it }
-                        var update: Boolean = true.also { popupMenu.menu.findItem(R.id.item_update).isVisible = it }
-                        var unblock: Boolean = false.also { popupMenu.menu.findItem(R.id.item_unblock).isVisible = it }
-//                        holder.item.isVisible = false
-//                        holder.item3.isVisible = true
-//                        holder.item2.isVisible = true
-//                        holder.item4.setVisible(true)
-                    }*/
-                        //* R.id.item_delete->{
-                       /* model.flat = null.toString()
-                    model.area = null.toString()
-                            model . city =
-                        null
-                        .toString()
-                    model.state = null.toString()
-                            model . country =
-                        null
-                        .toString()
-                    model.pincode = null.toString()
-                            model . status =
-                        null
-                        .toString()
-                }*/
-
                 }
                 true
             })
+            }
+            if (model.status == "blocked") {
+                holder.menu.setOnClickListener {
+                    val popupMenu = PopupMenu(context, it)
+                    popupMenu.menuInflater.inflate(R.menu.custom_layout_menu, popupMenu.menu)
+                    popupMenu.show()
+                    popupMenu.menu.findItem(R.id.item_unblock).setVisible(true)
+                    popupMenu.menu.findItem(R.id.item_delete).setVisible(true)
+                    popupMenu.menu.findItem(R.id.item_block).setVisible(false)
+                    popupMenu.menu.findItem(R.id.item_update).setVisible(false)
+
+                    popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                        when(item.itemId){
+                            R.id.item_unblock -> {
+                                model.status = "active"
+                                holder.textView7.text = model.status
+                                var map=HashMap<String,String>()
+                                map.put("status",model.status)
+                                FirebaseFirestore.getInstance().collection("Users").document(model.chairmanemail).update(map as Map<String, Any>)
+                                FirebaseFirestore.getInstance().collection("Society").document(model.flat).update(map as Map<String, Any>)
+                            }
+                            R.id.item_delete -> {
+                                FirebaseFirestore.getInstance().collection("Society").document(model.flat).delete()
+                                FirebaseFirestore.getInstance().collection("Users").document(model.chairmanemail).delete()
+                            }
+                        }
+                        true
+                    })
+                }
+            }
         }
-        holder.textInputLayout.setOnClickListener {
-            var intent=Intent(context,Society_Information::class.java)
-            intent.putExtra("society_name",model.flat)
-            intent.putExtra("address",model.area+","+model.city+","+model.state+","+model.country+"-"+model.pincode)
-            intent.putExtra("chairman_name",model.chairmanfname +""+ model.chairmanlname)
-            intent.putExtra("chairman_mobile",model.chairmanmobile)
-            intent.putExtra("chairman_email",model.chairmanemail)
-            context.startActivity(intent)
-        }
+            holder.textInputLayout.setOnClickListener {
+                var intent = Intent(context, Society_Information::class.java)
+                intent.putExtra("society_name", model.flat)
+                intent.putExtra("address", model.area + "," + model.city + "," + model.state + "," + model.country + "-" + model.pincode)
+                intent.putExtra("chairman_name", model.chairmanfname + "" + model.chairmanlname)
+                intent.putExtra("chairman_mobile", model.chairmanmobile)
+                intent.putExtra("chairman_email", model.chairmanemail)
+                context.startActivity(intent)
+            }
         holder.textView1.text = model.flat
         holder.textView2.text = model.area
         holder.textView3.text = model.city
+            //model mathi textview ma set thase
         holder.textView4.text = model.state
         holder.textView5.text = model.country
         holder.textView6.text = model.pincode
-        holder.textView7.text=model.status
+        holder.textView7.text = model.status
     }
 }
 class SocietyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

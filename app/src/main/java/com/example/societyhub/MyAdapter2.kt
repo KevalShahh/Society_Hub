@@ -5,23 +5,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MyAdapter1(var context: Context, supportFragmentManager: FragmentManager, var tabCount: Int) : FragmentPagerAdapter(supportFragmentManager) {
+class MyAdapter2(var context: Context, supportFragmentManager: FragmentManager, var tabCount: Int) : FragmentPagerAdapter(supportFragmentManager) {
     override fun getCount(): Int {
         return tabCount
     }
 
     override fun getItem(position: Int): Fragment {
-       return when(position){
+        when(position){
             0->{
-                return NoticesSentFragmentChairmanSide()
+                return EventFragment()
             }
             1->{
-                return NoticesReceivedFragmentChairmanSide()
+                return MaintenanceFragment()
             }
-            else->{
-                return null!!
-            }
+            else->return null!!
         }
     }
 
 }
+

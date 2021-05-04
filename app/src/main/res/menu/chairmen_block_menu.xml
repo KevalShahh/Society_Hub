@@ -5,6 +5,8 @@
         />
     <item android:id="@+id/item_chairmen_unblock"
         android:title="unblock"
-        android:visible="false"
+        />
+    <item android:id="@+id/item_chairmen_active"
+        android:title="activate"
         />
 </menu>

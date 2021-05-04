@@ -18,6 +18,7 @@ class AdminCreateSocieties : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding1=ActivityAdminCreateSocietiesBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding1.root)
+        var arrayList=ArrayList<String>()
         viewBinding1.adminCreateSocietyBtnCreate.setOnClickListener {
             var flat = viewBinding1.etAdminSocietyInformationFlat.text.toString()
             var area = viewBinding1.etAdminSocietyInformationArea.text.toString()
@@ -32,11 +33,16 @@ class AdminCreateSocieties : AppCompatActivity() {
             var chairmanflat = viewBinding1.etAdminCreateSocietyChairmanFlate.text.toString()
             var chairmanpass = viewBinding1.etAdminCreateSocietyChairmanPass.text.toString()
             var chairmanconfirmpass = viewBinding1.etAdminCreateSocietyChairmanConfirmPass.text.toString()
-            val userModel1 = UserModel1(flat, area, city, state, country, pincode, chairmanfname, chairmanlname, chairmanemail, chairmanmobile, chairmanflat, chairmanpass, chairmanconfirmpass)
+            var status="active"
+            val userModel1 = UserModel1(flat, area, city, state, country, pincode, chairmanfname, chairmanlname, chairmanemail, chairmanmobile, chairmanflat, chairmanpass, chairmanconfirmpass,status)
+            arrayList.add(flat)
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(chairmanemail, chairmanpass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val user = UserModel1(chairmanemail = chairmanemail, chairmanpass = chairmanpass)
-                        storeUser(user)
+                        FirebaseFirestore.getInstance().collection("Users").document(chairmanemail).set(userModel1).addOnCompleteListener {
+                            if (it.isSuccessful){
+                                Toast.makeText(this, "Chairman Created", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                         /* startActivity(Intent(this@RegisterActivity, MainActivity::class.java))*/
                     } else Toast.makeText(this, "${it.exception}", Toast.LENGTH_SHORT).show()
                 }
@@ -48,29 +54,6 @@ class AdminCreateSocieties : AppCompatActivity() {
                 }
             }
 
-        }
-    }
-
-    private fun storeUser(user: UserModel1) {
-//        TODO("Not yet implemented")
-        var flat = viewBinding1.etAdminSocietyInformationFlat.text.toString()
-        var area = viewBinding1.etAdminSocietyInformationArea.text.toString()
-        var city = viewBinding1.etAdminSocietyInformationCity.text.toString()
-        var state = viewBinding1.etAdminSocietyInformationState.text.toString()
-        var country = viewBinding1.etAdminSocietyInformationCountry.text.toString()
-        var pincode = viewBinding1.etAdminSocietyInformationPincode.text.toString()
-        var chairmanfname = viewBinding1.etAdminCreateSocietyChairmanFname.text.toString()
-        var chairmanlname = viewBinding1.etAdminCreateSocietyChairmanLname.text.toString()
-        var chairmanemail = viewBinding1.etAdminCreateSocietyChairmanEmail.text.toString()
-        var chairmanmobile = viewBinding1.etAdminCreateSocietyChairmanMobile.text.toString()
-        var chairmanflat = viewBinding1.etAdminCreateSocietyChairmanFlate.text.toString()
-        var chairmanpass = viewBinding1.etAdminCreateSocietyChairmanPass.text.toString()
-        var chairmanconfirmpass = viewBinding1.etAdminCreateSocietyChairmanConfirmPass.text.toString()
-        val userModel1 = UserModel1(flat, area, city, state, country, pincode, chairmanfname, chairmanlname, chairmanemail, chairmanmobile, chairmanflat, chairmanpass, chairmanconfirmpass)
-        FirebaseFirestore.getInstance().collection("Users").document(chairmanemail).set(userModel1).addOnCompleteListener {
-            if (it.isSuccessful){
-                Toast.makeText(this, "Chairman Created", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }

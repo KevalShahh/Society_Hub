@@ -12,7 +12,7 @@ import com.google.firebase.firestore.Query
 class EventsUserSide : AppCompatActivity() {
     lateinit var viewBinding:ActivityEventsUserSideBinding
     lateinit var query: Query
-    lateinit var firebaseRecyclerAdapter:FireStoreRecycleAdapter5
+    lateinit var firebaseRecyclerAdapter:FirebaseRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class EventsUserSide : AppCompatActivity() {
         setContentView(viewBinding.root)
         query= FirebaseFirestore.getInstance().collection("Events")
         var rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
-        firebaseRecyclerAdapter=FireStoreRecycleAdapter5(this, rvoptions)
+        firebaseRecyclerAdapter=FirebaseRecyclerAdapter(this, rvoptions)
         viewBinding.eventsUserSide.adapter=firebaseRecyclerAdapter
         viewBinding.eventsUserSide.layoutManager=LinearLayoutManager(this)
     }

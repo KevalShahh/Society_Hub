@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class FireStoreRecycleAdapter4(var context:Context, rvoptions: FirestoreRecyclerOptions<AdminNoticeModel>) : FirestoreRecyclerAdapter<AdminNoticeModel, AdminNoticeViewHolder>(rvoptions) {
+    var arrayList=ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminNoticeViewHolder {
         val view=LayoutInflater.from(context).inflate(R.layout.activity_custom_notice,parent,false)
         return AdminNoticeViewHolder(view)
@@ -27,6 +28,7 @@ class FireStoreRecycleAdapter4(var context:Context, rvoptions: FirestoreRecycler
         holder.textView.text=model.title
         holder.textView1.text=model.description
         holder.textView2.text= model.getCreatedDateFormat()
+        arrayList.add(holder.textView.toString())
         holder.textView3.setOnClickListener {
             var intent=Intent(context,AdminNoticeInformation::class.java)
             intent.putExtra("title1",model.title)

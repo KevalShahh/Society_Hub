@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/tabLayout_notice_chairman_side"
+        app:layout_constraintBottom_toTopOf="@+id/viewpager_notice_chairman_side"
         app:layout_constraintTop_toTopOf="parent"
         ></com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout_notice_chairman_side"
         app:layout_constraintBottom_toBottomOf="parent"

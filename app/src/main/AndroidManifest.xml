@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.teal"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AttendEventNotRegisteredChairmanSide"></activity>
+        <activity android:name=".CustomCreateMaintenance"></activity>
+        <activity android:name=".ViewMemberPaymentInfo" />
+        <activity android:name=".CustomMemberChairmanSide" />
+        <activity android:name=".AttendEventNotRegisteredChairmanSide" />
         <activity android:name=".EventRegisteredChairmanSide" />
         <activity android:name=".EventNotRegisteredChairmanSide" />
         <activity android:name=".MaintenanceNotPaidChairmanSide" />
@@ -68,6 +71,7 @@
         <activity android:name=".CustomNoticeInformationAdmin" />
         <activity android:name=".AdminNoticeInformation" />
         <activity android:name=".AdminNotice" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".ChairmanMaintenancePaymentNotPaid" />
         <activity android:name=".ChairmanMaintenancePaymentPaid" />
         <activity android:name=".CustomMaintenanceChairmanDetails" />

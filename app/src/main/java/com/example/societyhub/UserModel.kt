@@ -8,5 +8,5 @@ class UserModel(
         var flatHouseNo: String = "",
         var password: String = "",
         var society: String = "",
-        var userType: String = ""
+        var status:String="",
 )

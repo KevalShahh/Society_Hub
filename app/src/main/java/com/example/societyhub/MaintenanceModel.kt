@@ -11,6 +11,7 @@ class MaintenanceModel(
         var Amount: String="",
         var LateCharges: String="",
         var Description1: String="",
+        var useremail:String="",
         var createdAt: Timestamp = Timestamp.now()
         )
 {
