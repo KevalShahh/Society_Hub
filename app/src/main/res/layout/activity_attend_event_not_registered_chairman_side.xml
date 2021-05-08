@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AttendEventNotRegisteredChairmanSide">
 
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:id="@+id/chairman_side_attend_event_name_not_registered"
         />
     <TextView
@@ -31,20 +31,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chairman_side_attend_event_start_date_not_registered"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chairman_side_attend_event_start_time_not_registered"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event Start"
-        android:textSize="25dp"
+        android:textSize="15dp"
         />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -56,20 +58,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chairman_side_attend_event_end_date_not_registered"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chairman_side_attend_event_end_time_not_registered"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Event End"
-        android:textSize="25dp"
+        android:textSize="15dp"
         />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -80,20 +84,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             android:id="@+id/chairman_side_attend_event_charges_not_registered"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             android:text=" /PERSON"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Charges"
-        android:textSize="25dp"
+        android:textSize="15dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -131,7 +137,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
         android:inputType="number"
         android:layout_marginTop="4dp"
         android:id="@+id/chairman_side_tv_total_charges_attend_event_not_registered"/>
@@ -139,5 +146,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total Charges"
-        android:textSize="25dp"/>
+        android:textSize="15dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="PAY NOW"
+        android:layout_margin="5dp"
+        />
+    </LinearLayout>
 </LinearLayout>

@@ -10,7 +10,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@drawable/background_orange"
+        android:background="@drawable/background_green"
         android:id="@+id/admin_societies"
         android:layout_margin="10dp"
         android:padding="20dp"
@@ -39,7 +39,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@drawable/background_blue"
+        android:background="@drawable/background_orange"
         android:id="@+id/admin_chairmen"
         android:layout_margin="10dp"
         android:padding="20dp"
@@ -68,7 +68,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@drawable/background_green"
+        android:backgroundTint="#AD87F1"
+        android:background="@drawable/btn_background"
         android:id="@+id/Notice"
         android:layout_margin="10dp"
         android:padding="20dp"

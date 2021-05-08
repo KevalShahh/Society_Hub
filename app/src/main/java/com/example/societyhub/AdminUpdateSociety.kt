@@ -37,6 +37,7 @@ class AdminUpdateSociety : AppCompatActivity() {
             FirebaseFirestore.getInstance().collection("Society").document(flat.toString()).update(map).addOnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(this, "Society Updated Successfully", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this,Societies::class.java))
                 }
             }
         }

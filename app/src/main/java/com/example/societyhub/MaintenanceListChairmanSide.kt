@@ -14,7 +14,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.societyhub.databinding.ActivityMaintenanceListChairmanSideBinding
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
@@ -29,7 +31,12 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMaintenanceListChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        var m=intent.getStringExtra("month11")
+        var arrayList=intent.getStringExtra("array")
+        //var arrayylist=intent.getStringArrayListExtra("arrayy")
 
+        Log.d("TAG", "onCreate: "+arrayList)
+       // Log.d("TAG", "onCreate: "+arrayylist)
         query = FirebaseFirestore.getInstance().collection("Maintenance")
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvoptions)
@@ -80,14 +87,19 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
     }
 
     private fun getMaintenanceList(maintenanceMonth: String) {
-
+       /* var query=FirebaseFirestore.getInstance()
+                .collection("Maintenance")
+                .orderBy("maintenanceMonth")
+                .startAt(maintenanceMonth)
+                .endAt(maintenanceMonth + "\uf8ff")
+        var options=FirestoreRecyclerOptions.Builder<MaintenanceModel1>().setQuery(query).build()*/
         val options: FirestoreRecyclerOptions<MaintenanceModel>
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
                 .setQuery(FirebaseFirestore.getInstance()
                 .collection("Maintenance")
                 .orderBy("maintenanceMonth")
                 .startAt(maintenanceMonth)
-                .endAt(maintenanceMonth + "\uf8ff"), MaintenanceModel::class.java)
+                .endAt(maintenanceMonth + "\uf8ff"),MaintenanceModel::class.java)
                 .build()
         firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, options)
         firebaseRecyclerAdapter.startListening()

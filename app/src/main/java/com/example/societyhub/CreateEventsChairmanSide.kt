@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.societyhub.databinding.ActivityCreateEventsChairmanSideBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.sql.Time
 import java.text.SimpleDateFormat
@@ -90,22 +91,75 @@ class CreateEventsChairmanSide : AppCompatActivity() {
             timePickerDialog.show()
         }
         viewBinding.btnCreateEvent.setOnClickListener {
-            var EventTitle=viewBinding.eventTitleChairmanSide.text.toString()
-            var EventDescription=viewBinding.eventDescriptionChairmanSide.text.toString()
-            var EventStartDate=viewBinding.eventStartDateChairmanSide.text.toString()
-            var EventStartTime=viewBinding.eventStartTimeChairmanSide.text.toString()
-            var EventEndDate=viewBinding.eventEndDateChairmanSide.text.toString()
-            var EventEndTime=viewBinding.eventEndTimeChairmanSide.text.toString()
-            var EventAmount=viewBinding.eventAmountChairmanSide.text.toString()
+            var a=true
+            if (viewBinding.eventTitleChairmanSide.text.isEmpty()){
+                a=false
+                viewBinding.eventTitleChairmanSide.error="Enter Title"
+            }
+            if (viewBinding.eventDescriptionChairmanSide.text.isEmpty()){
+                a=false
+                viewBinding.eventDescriptionChairmanSide.error="Enter Description"
+            }
+            if (viewBinding.eventStartDateChairmanSide.text?.isEmpty() == true){
+                a=false
+                viewBinding.eventStartDateChairmanSide.error="Select Date"
+            }
+            if (viewBinding.eventStartTimeChairmanSide.text?.isEmpty() == true){
+                a=false
+                viewBinding.eventStartTimeChairmanSide.error="Select Time"
+            }
+            if (viewBinding.eventEndDateChairmanSide.text?.isEmpty() == true){
+                a=false
+                viewBinding.eventEndDateChairmanSide.error="Select Date"
+            }
+           /* if (viewBinding.eventStartDateChairmanSide.text>viewBinding.eventEndDateChairmanSide.text){
+                a=false
+                viewBinding.eventEndDateChairmanSide.error="Select Valid Date"
+            }*/
+            if (viewBinding.eventEndTimeChairmanSide.text?.isEmpty() == true){
+                a=false
+                viewBinding.eventEndTimeChairmanSide.error="Select Time"
+            }
+            if (viewBinding.eventAmountChairmanSide.text.isEmpty()){
+                a=false
+                viewBinding.eventAmountChairmanSide.error="Enter Amount"
+            }
+            if (a){
+            var EventTitle = viewBinding.eventTitleChairmanSide.text.toString()
+            var EventDescription = viewBinding.eventDescriptionChairmanSide.text.toString()
+            var EventStartDate = viewBinding.eventStartDateChairmanSide.text.toString()
+            var EventStartTime = viewBinding.eventStartTimeChairmanSide.text.toString()
+            var EventEndDate = viewBinding.eventEndDateChairmanSide.text.toString()
+            var EventEndTime = viewBinding.eventEndTimeChairmanSide.text.toString()
+            var EventAmount = viewBinding.eventAmountChairmanSide.text.toString()
 
-            var eventModel=EventModel(EventTitle, EventDescription, EventStartDate, EventStartTime, EventEndDate, EventEndTime, EventAmount)
-            FirebaseFirestore.getInstance().collection("Events").document(EventTitle).set(eventModel).addOnCompleteListener {
+            var eventModel = EventModel(EventTitle, EventDescription, EventStartDate, EventStartTime, EventEndDate, EventEndTime, EventAmount)
+            /* FirebaseFirestore.getInstance().collection("Events").document(EventTitle).set(eventModel).addOnCompleteListener {
                 if (it.isSuccessful){
                     Toast.makeText(this, "Event Created", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, EventsChairmanSide::class.java))
                 }
+            }*/
+            var fireuser = FirebaseAuth.getInstance().currentUser
+            var user = fireuser?.email
+            if (user != null) {
+                FirebaseFirestore.getInstance().collection("Users").document(user).get().addOnSuccessListener {
+                    if (it.exists()) {
+                        var model = it.toObject(UserModel1::class.java)
+                        var s = model?.flat
+                        if (s != null) {
+                            FirebaseFirestore.getInstance().collection("Society").document(s).collection("Events").document(EventTitle).set(eventModel).addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Toast.makeText(this, "event created", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this, EventsChairmanSide::class.java))
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
+        }
         }
     }
 }

@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/societyhubicon"
@@ -15,13 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.teal"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CustomMember"></activity>
+        <activity android:name=".CustomSocietyMemberAdmin"></activity>
+        <activity android:name=".AdminSideMaintenanceFragment" />
+        <activity android:name=".AdminSideEventFragment" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".ChairmanNoticeInformation" />
+        <activity android:name=".CustomMember" />
         <activity android:name=".CustomCreateMaintenance" />
         <activity android:name=".ViewMemberPaymentInfo" />
         <activity android:name=".CustomMemberChairmanSide" />
         <activity android:name=".AttendEventNotRegisteredChairmanSide" />
         <activity android:name=".EventRegisteredChairmanSide" />
         <activity android:name=".EventNotRegisteredChairmanSide" />
+        <activity android:name=".ForgetPassword" />
         <activity android:name=".MaintenanceNotPaidChairmanSide" />
         <activity android:name=".MaintenancePaidChairmanSide" />
 

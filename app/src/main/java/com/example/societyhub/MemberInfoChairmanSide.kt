@@ -16,6 +16,7 @@ class MemberInfoChairmanSide : AppCompatActivity() {
         viewBinding.memberNameChairmanSide.text=intent.getStringExtra("MemberName")
         viewBinding.memberMobileChairmanSide.text=intent.getStringExtra("MemberMobile")
         viewBinding.memberEmailChairmanSide.text=intent.getStringExtra("MemberEmail")
+        viewBinding.memberTypeChairmanSide.text="SOCIETY_MEMBER"
         viewBinding.tvViewPaymentinfo.setOnClickListener {
             startActivity(Intent(this,ViewMemberPaymentInfo::class.java))
         }

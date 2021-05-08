@@ -49,19 +49,38 @@ class AdminCreateNotice : AppCompatActivity() {
         })
 
         viewBinding.adminCreateNoticeSendNotice.setOnClickListener {
-            var title=viewBinding.adminCreateNoticeTitle.text.toString()
-            var description=viewBinding.adminCreateNoticeDescription.text.toString()
-            var timestamp=Timestamp.now()
+            var a=true
+            if (viewBinding.adminCreateNoticeTitle.text.isEmpty()){
+                a=false
+                viewBinding.adminCreateNoticeTitle.error="Enter Title"
+            }
+            if (viewBinding.adminCreateNoticeDescription.text.isEmpty()){
+                a=false
+                viewBinding.adminCreateNoticeDescription.error="Enter Description"
+            }
+            if (firestorerecyclerAdapter.arraylist.isEmpty()){
+                a=false
+                Toast.makeText(this, "Please Select Atleast One Chairman", Toast.LENGTH_SHORT).show()
+            }
+            if (a){
+            var title = viewBinding.adminCreateNoticeTitle.text.toString()
+            var description = viewBinding.adminCreateNoticeDescription.text.toString()
+            var timestamp = Timestamp.now()
             firestorerecyclerAdapter.arraylist.forEach {
-                var adminNoticeModel=AdminNoticeModel(title,description,it)
-                FirebaseFirestore.getInstance().collection("Notice").document(it+"_"+timestamp.seconds).set(adminNoticeModel).addOnCompleteListener {
+                var adminNoticeModel = AdminNoticeModel(title, description, it)
+                /* FirebaseFirestore.getInstance().collection("Notice").document(it+"_"+timestamp.seconds).set(adminNoticeModel).addOnCompleteListener {
                     if (it.isSuccessful)
                     {
                         Toast.makeText(this, "Notice Sent Successfully", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this,AdminNotice::class.java))
                     }
+                }*/
+                FirebaseFirestore.getInstance().collection("Users").document(it).collection("recieved notice").document(title).set(adminNoticeModel).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Toast.makeText(this, "Notice Sent Successfully", Toast.LENGTH_SHORT).show()
+                    }
                 }
-              /*  var adminNoticeModel1=AdminNoticeModel(title,description)
+                /*  var adminNoticeModel1=AdminNoticeModel(title,description)
                 FirebaseFirestore.getInstance().collection("Notice").document(title).set(adminNoticeModel1).addOnCompleteListener {
                     if (it.isSuccessful){
                         Toast.makeText(this, "notice created ", Toast.LENGTH_SHORT).show()
@@ -73,6 +92,13 @@ class AdminCreateNotice : AppCompatActivity() {
                     }
                 }*/
             }
+            var adminNoticeModel1 = AdminNoticeModel(title, description)
+            FirebaseFirestore.getInstance().collection("Notice Admin").document(title).set(adminNoticeModel1).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    startActivity(Intent(this, AdminNotice::class.java))
+                }
+            }
+        }
         }
     }
     override fun onStart() {

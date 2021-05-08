@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Contact Chairman"
+        android:textColor="@color/teal_700"
         android:textSize="20dp"
         android:gravity="end"
         android:layout_margin="10dp"
@@ -33,12 +34,13 @@
         android:background="@drawable/btn_background"
         android:layout_margin="10dp"
         android:id="@+id/maintenance_card_view_user_side"
-        android:layout_weight="1"
+        android:layout_weight="0"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/grediant_background"
             >
             <ImageView
                 android:layout_width="70dp"
@@ -67,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/grediant_background"
             >
             <ImageView
                 android:layout_width="70dp"
@@ -95,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/grediant_background"
             >
             <ImageView
                 android:layout_width="70dp"

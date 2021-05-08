@@ -29,7 +29,9 @@ class MaintenanceUserSide : AppCompatActivity() {
         }
         var currentuser= FirebaseAuth.getInstance().currentUser
         var email= currentuser?.email
-        query= FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",email)
+      //  FirebaseFirestore.getInstance().collection("maintenance").document().collection("sentTo").whereEqualTo("useremail",email)
+        query= email?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
+        //query= FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",email)
         val rvoptions= FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query,MaintenanceModel::class.java).build()
         firestorerecycleadapter= FirebaseRecyclerAdapter2(this,rvoptions)
         viewBinding.rvUserMaintenanceList.adapter= firestorerecycleadapter

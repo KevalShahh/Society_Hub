@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.societyhub.databinding.ActivityEventsChairmanSideBinding
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -20,19 +21,31 @@ class EventsChairmanSide : AppCompatActivity() {
         viewBinding= ActivityEventsChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
 
-        query=FirebaseFirestore.getInstance().collection("Events")
-        var rvoptions=FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
-        firebaseRecyclerAdapter=FirebaseRecyclerAdapter(this, rvoptions)
-        
-        viewBinding.rvEventsChairmanSide.adapter=firebaseRecyclerAdapter
-        viewBinding.rvEventsChairmanSide.layoutManager=LinearLayoutManager(this)
+        var fireuser=FirebaseAuth.getInstance().currentUser
+        var user= fireuser?.email
+        if (user != null) {
+            FirebaseFirestore.getInstance().collection("Users").document(user).get().addOnSuccessListener {
+                if (it.exists()){
+                    var model=it.toObject(UserModel1::class.java)
+                    var s= model?.flat
+                    query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
+                    var rvoptions=FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
+                    firebaseRecyclerAdapter=FirebaseRecyclerAdapter(this, rvoptions)
+                    viewBinding.rvEventsChairmanSide.adapter=firebaseRecyclerAdapter
+                    viewBinding.rvEventsChairmanSide.layoutManager=LinearLayoutManager(this)
+                    firebaseRecyclerAdapter.startListening()
+                    firebaseRecyclerAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
         
         viewBinding.fbCreateEvents.setOnClickListener {
             startActivity(Intent(this,CreateEventsChairmanSide::class.java))
         }
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         firebaseRecyclerAdapter.startListening()
     }
@@ -40,5 +53,5 @@ class EventsChairmanSide : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firebaseRecyclerAdapter.stopListening()
-    }
+    }*/
 }

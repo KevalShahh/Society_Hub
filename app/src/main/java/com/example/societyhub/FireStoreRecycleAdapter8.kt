@@ -14,6 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 class FireStoreRecycleAdapter8(var context: Context, rvoptions: FirestoreRecyclerOptions<UserModel>):FirestoreRecyclerAdapter<UserModel,MaintenanceSendViewHolder>(rvoptions) {
+
     var arraylist=ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceSendViewHolder {
        var view=LayoutInflater.from(context).inflate(R.layout.activity_custom_create_maintenance,parent,false)

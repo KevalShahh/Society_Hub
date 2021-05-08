@@ -3,6 +3,7 @@ package com.example.societyhub
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -15,6 +16,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityRegisterBinding
@@ -24,19 +26,22 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        var arrayList=ArrayList<String>()
+        var regex="^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}\$"
+        var pattern=Pattern.compile(regex)
+        var arrayList = ArrayList<String>()
         FirebaseFirestore.getInstance().collection("Society").addSnapshotListener(EventListener { value, error ->
             if (value != null && !value.isEmpty) {
-                Log.d("TAG", "onCreate: "+value.size())
-                for (i in 0..(value.size()-1)) {
+                Log.d("TAG", "onCreate: " + value.size())
+                for (i in 0..(value.size() - 1)) {
                     arrayList.add(value.documents.get(i).get("flat").toString())
-                    var adapter=ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,arrayList)
-                    viewBinding.spSelect.adapter=adapter
-                    Log.d("TAG", "onCreate: "+arrayList)
-                    viewBinding.spSelect.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+                    var adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayList)
+                    viewBinding.spSelect.adapter = adapter
+                    Log.d("TAG", "onCreate: " + arrayList)
+                    viewBinding.spSelect.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                            Toast.makeText(this@RegisterActivity, "Selected Society : "+ arrayList[position], Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@RegisterActivity, "Selected Society : " + arrayList[position], Toast.LENGTH_SHORT).show()
                         }
+
                         override fun onNothingSelected(parent: AdapterView<*>?) {
                         }
                     }
@@ -47,28 +52,68 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
         }
         viewBinding.btnRegister.setOnClickListener {
+            var a=true
+            if (viewBinding.etFname.text?.isEmpty() == true){
+                a=false
+                viewBinding.etFname.error="Enter First Name"
+            }
+            if (viewBinding.etLname.text?.isEmpty() == true){
+                a=false
+                viewBinding.etLname.error="Enter Last Name"
+            }
+            if (viewBinding.etEmail.text?.isEmpty() == true){
+                a=false
+                viewBinding.etEmail.error="Enter Email Id"
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(viewBinding.etEmail.text).matches()){
+                a=false
+                viewBinding.etEmail.error="Enter Valid Email Id"
+            }
+            if (viewBinding.etMob.text?.isEmpty() == true){
+                a=false
+                viewBinding.etMob.error="Enter Mobile Number"
+            }
+            if (!pattern.matcher(viewBinding.etMob.text).matches() || (viewBinding.etMob.text?.toString()?.length!! <10) || (viewBinding.etMob.text!!.toString().length>10)){
+                a=false
+                viewBinding.etMob.error="Enter 10 Digit Mobile Number"
+            }
+            if (viewBinding.etHouse.text?.isEmpty() == true){
+                a=false
+                viewBinding.etHouse.error="Enter House Number"
+            }
+            if (viewBinding.etPass.text?.isEmpty() == true){
+                a=false
+                viewBinding.etPass.error="Enter Password"
+            }
+            if (viewBinding.etConfirm.text!=viewBinding.etPass.text){
+                a=false
+                viewBinding.etConfirm.error="Password Doesn't Match"
+            }
+            if (a){
             var email = viewBinding.etEmail.text.toString()
             var pass = viewBinding.etPass.text.toString()
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Registered", Toast.LENGTH_SHORT).show()
-                    var fname=viewBinding.etFname.text.toString()
-                    var lname=viewBinding.etLname.text.toString()
-                    var email=viewBinding.etEmail.text.toString()
-                    var mobile=viewBinding.etMob.text.toString()
-                    var houseno=viewBinding.etHouse.text.toString()
-                    var password=viewBinding.etPass.text.toString()
-                    var society=viewBinding.spSelect.selectedItem.toString()
-                    var status="pending"
-                    var user=UserModel(fname,lname,email,mobile,houseno,password,society,status)
+                    var fname = viewBinding.etFname.text.toString()
+                    var lname = viewBinding.etLname.text.toString()
+                    var email = viewBinding.etEmail.text.toString()
+                    var mobile = viewBinding.etMob.text.toString()
+                    var houseno = viewBinding.etHouse.text.toString()
+                    var password = viewBinding.etPass.text.toString()
+                    var society = viewBinding.spSelect.selectedItem.toString()
+                    var status = "pending"
+                    var user = UserModel(fname, lname, email, mobile, houseno, password, society, status)
                     FirebaseFirestore.getInstance().collection("Members").document(email).set(user).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(this, "User Stored", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, MainActivity::class.java))
                         } else Toast.makeText(this, "" + it.exception, Toast.LENGTH_SHORT).show()
                     }
-                   // FirebaseFirestore.getInstance().collection("Society").document(society).collection("Members").add(user)
+                    // FirebaseFirestore.getInstance().collection("Society").document(society).collection("Members").add(user)
                 } else Toast.makeText(this, "${it.exception}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
     }
 }

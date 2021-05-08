@@ -26,6 +26,9 @@ class NoticesSentFragmentChairmanSide : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var query: Query
+    private lateinit var firestorerecycleadapter:FireStoreRecycleAdapter11
+    private lateinit var recycleView:RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,17 @@ class NoticesSentFragmentChairmanSide : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        baki
+
+        var currentuser=FirebaseAuth.getInstance().currentUser
+        var email= currentuser?.email
+
+        recycleView=view.findViewById(R.id.rv_notices_sent_chairman_side)
+      //  query=FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("chairmanemailid",email)
+        query=FirebaseFirestore.getInstance().collection("Notice Chairman")
+        val rvoptions= FirestoreRecyclerOptions.Builder<ChairmanNoticeModel>().setQuery(query,ChairmanNoticeModel::class.java).build()
+        firestorerecycleadapter= context?.let { FireStoreRecycleAdapter11(it,rvoptions) }!!
+        recycleView.adapter= firestorerecycleadapter
+        recycleView.layoutManager=LinearLayoutManager(context)
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,6 +58,15 @@ class NoticesSentFragmentChairmanSide : Fragment() {
         return inflater.inflate(R.layout.fragment_notices_sent_chairman_side, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        firestorerecycleadapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firestorerecycleadapter.stopListening()
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

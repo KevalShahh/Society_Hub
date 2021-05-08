@@ -32,34 +32,17 @@ class MemberListChairmanSide : AppCompatActivity() {
                     if (userModel1!=null){
                         s=userModel1.flat
                         Log.d("TAG", "onCreate: "+s)
-                       /* query= FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society",s)
+                        query= FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society",s)
                         var rvoptions= FirestoreRecyclerOptions.Builder<UserModel>().setQuery(query,UserModel::class.java).build()
                         firestorerecyclerAdapter=FireStoreRecycleAdapter7(this,rvoptions)
                         viewBinding.rvMemberListChairmanSide.adapter=firestorerecyclerAdapter
                         viewBinding.rvMemberListChairmanSide.layoutManager= LinearLayoutManager(this)
                         Log.d("TAG", "onCreate: "+firestorerecyclerAdapter.itemCount)
                         firestorerecyclerAdapter.startListening()
-                        firestorerecyclerAdapter.stopListening()
-                        firestorerecyclerAdapter.notifyDataSetChanged()*/
+                        firestorerecyclerAdapter.notifyDataSetChanged()
                     }
                 }
             }
         }
-        query= FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society","ananya")
-        var rvoptions= FirestoreRecyclerOptions.Builder<UserModel>().setQuery(query,UserModel::class.java).build()
-        firestorerecyclerAdapter=FireStoreRecycleAdapter7(this,rvoptions)
-        viewBinding.rvMemberListChairmanSide.adapter=firestorerecyclerAdapter
-        viewBinding.rvMemberListChairmanSide.layoutManager= LinearLayoutManager(this)
-        Log.d("TAG", "onCreate: "+viewBinding.rvMemberListChairmanSide.childCount)
 }
-
-    override fun onStart() {
-        super.onStart()
-        firestorerecyclerAdapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        firestorerecyclerAdapter.stopListening()
-    }
 }

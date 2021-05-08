@@ -10,20 +10,18 @@ import androidx.viewpager.widget.PagerAdapter
 @Suppress("DEPRECATION")
 class MyAdapter(val context: Context, supportFragmentManager: FragmentManager, var tabCount: Int) : FragmentPagerAdapter(supportFragmentManager) {
     override fun getCount(): Int {
-//        TODO("Not yet implemented")
         return tabCount
     }
 
     override fun getItem(position: Int): Fragment {
-//        TODO("Not yet implemented")
         when(position){
             0->{
-                return EventFragment()
+                return AdminSideEventFragment()
             }
             1->{
                 return MaintenanceFragment()
             }
-            else->return EventFragment()
+            else->return null!!
         }
     }
 }

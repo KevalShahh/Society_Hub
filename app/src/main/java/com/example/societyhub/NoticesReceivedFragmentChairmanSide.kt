@@ -45,7 +45,8 @@ class NoticesReceivedFragmentChairmanSide : Fragment() {
         var email= currentuser?.email
 
         recycleView=view.findViewById(R.id.rv_notices_received_chairman_side)
-        query=FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("chairmanemailid",email)
+        //query=FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("chairmanemailid",email)
+        query= email?.let { FirebaseFirestore.getInstance().collection("Users").document(it).collection("recieved notice") }!!
         val rvoptions= FirestoreRecyclerOptions.Builder<AdminNoticeModel>().setQuery(query,AdminNoticeModel::class.java).build()
         firestorerecycleadapter= context?.let { FireStoreRecycleAdapter4(it,rvoptions) }!!
         recycleView.adapter= firestorerecycleadapter

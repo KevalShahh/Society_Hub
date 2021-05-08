@@ -21,7 +21,7 @@ class AdminNotice : AppCompatActivity() {
         viewBinding.floatingAddButton.setOnClickListener {
             startActivity(Intent(this,AdminCreateNotice::class.java))
         }
-        query= FirebaseFirestore.getInstance().collection("Notice")
+        query= FirebaseFirestore.getInstance().collection("Notice Admin")
         var rvoptions= FirestoreRecyclerOptions.Builder<AdminNoticeModel>().setQuery(query,AdminNoticeModel::class.java).build()
         firestorerecyclerAdapter=FireStoreRecycleAdapter4(this,rvoptions)
         viewBinding.rvAdminNotice.adapter=firestorerecyclerAdapter

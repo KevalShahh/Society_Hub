@@ -7,6 +7,7 @@ import com.example.societyhub.databinding.ActivityAttendEventNotRegisteredChairm
 
 class AttendEventNotRegisteredChairmanSide : AppCompatActivity() {
     lateinit var viewBinding:ActivityAttendEventNotRegisteredChairmanSideBinding
+     var qnt=1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityAttendEventNotRegisteredChairmanSideBinding.inflate(LayoutInflater.from(this))
@@ -19,5 +20,19 @@ class AttendEventNotRegisteredChairmanSide : AppCompatActivity() {
         viewBinding.chairmanSideAttendEventEndTimeNotRegistered.text=intent.getStringExtra("eventEndTime")
         viewBinding.chairmanSideAttendEventChargesNotRegistered.text=intent.getStringExtra("eventCharges")
         viewBinding.chairmanSideTvTotalChargesAttendEventNotRegistered.text=intent.getStringExtra("eventCharges")
+
+        var c= intent.getStringExtra("eventCharges")?.toInt()
+        viewBinding.incrementInteger.setOnClickListener {
+            qnt=qnt+1
+            viewBinding.chairmanSideTvIncDecIntegerAttendEventNotRegistered.text=qnt.toString()
+            viewBinding.chairmanSideTvTotalChargesAttendEventNotRegistered.text=(qnt* c!!).toString()
+        }
+        viewBinding.decrementInteger.setOnClickListener {
+           if (qnt>1) {
+               qnt = qnt - 1
+               viewBinding.chairmanSideTvIncDecIntegerAttendEventNotRegistered.text=qnt.toString()
+               viewBinding.chairmanSideTvTotalChargesAttendEventNotRegistered.text=(qnt* c!!).toString()
+           }
+        }
     }
 }

@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="chairman email"
+            android:editable="false"
             android:id="@+id/chairman_email_my_profile"
             android:layout_margin="10dp"
             />
@@ -62,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="chairman mobile"
+            android:inputType="number"
             android:id="@+id/chairman_mobile_my_profile"
             android:layout_margin="10dp"
             />

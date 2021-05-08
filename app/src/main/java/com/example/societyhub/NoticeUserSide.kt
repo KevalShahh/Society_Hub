@@ -23,7 +23,8 @@ class NoticeUserSide : AppCompatActivity() {
         var currentuser= FirebaseAuth.getInstance().currentUser
         var email= currentuser?.email
 
-        query= FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("useremail",email)
+      //  query= FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("useremail",email)
+        query= email?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received notice") }!!
         val rvoptions= FirestoreRecyclerOptions.Builder<ChairmanNoticeModel>().setQuery(query,ChairmanNoticeModel::class.java).build()
         firestorerecycleadapter= FireStoreRecycleAdapter10(this,rvoptions)
         viewBinding.rvNoticeUserSide.adapter= firestorerecycleadapter
