@@ -19,16 +19,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [NoticesSentFragmentChairmanSide.newInstance] factory method to
+ * Use the [UserEventFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NoticesSentFragmentChairmanSide : Fragment() {
+class UserEventFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var query: Query
-    private lateinit var firestorerecycleadapter:FireStoreRecycleAdapter11
-    private lateinit var recycleView:RecyclerView
+    lateinit var query: Query
+    lateinit var firebaseRecyclerAdapter:FirebaseRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,33 +39,31 @@ class NoticesSentFragmentChairmanSide : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var currentuser=FirebaseAuth.getInstance().currentUser
-        var email= currentuser?.email
-
-        recycleView=view.findViewById(R.id.rv_notices_sent_chairman_side)
-      //  query=FirebaseFirestore.getInstance().collection("Notice").whereEqualTo("chairmanemailid",email)
-        query=FirebaseFirestore.getInstance().collection("Notice Chairman").whereEqualTo("useremail",email)
-        val rvoptions= FirestoreRecyclerOptions.Builder<ChairmanNoticeModel>().setQuery(query,ChairmanNoticeModel::class.java).build()
-        firestorerecycleadapter= context?.let { FireStoreRecycleAdapter11(it,rvoptions) }!!
-        recycleView.adapter= firestorerecycleadapter
-        recycleView.layoutManager=LinearLayoutManager(context)
+        var fireuser= FirebaseAuth.getInstance().currentUser
+        var user= fireuser?.email
+        var eventsUserSide=view.findViewById<RecyclerView>(R.id.events_user_side_fragment)
+        if (user != null) {
+            FirebaseFirestore.getInstance().collection("Members").document(user).get().addOnSuccessListener {
+                if (it.exists()){
+                    var model=it.toObject(UserModel::class.java)
+                    var s= model?.society
+                    query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
+                    var rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
+                    firebaseRecyclerAdapter=FirebaseRecyclerAdapter(view.context, rvoptions)
+                    eventsUserSide.adapter=firebaseRecyclerAdapter
+                    eventsUserSide.layoutManager= LinearLayoutManager(view.context)
+                    firebaseRecyclerAdapter.startListening()
+                    firebaseRecyclerAdapter.notifyDataSetChanged()
+                }
+            }
+        }
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notices_sent_chairman_side, container, false)
+        return inflater.inflate(R.layout.fragment_user_event, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        firestorerecycleadapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        firestorerecycleadapter.stopListening()
-    }
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -74,12 +71,12 @@ class NoticesSentFragmentChairmanSide : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment NoticesSentFragmentChairmanSide.
+         * @return A new instance of fragment UserEventFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                NoticesSentFragmentChairmanSide().apply {
+                UserEventFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)

@@ -91,10 +91,12 @@ class CreateNoticeChairmanSide : AppCompatActivity() {
                         }
                     }
                 }
-                var chairmanNoticeModel1 = ChairmanNoticeModel(title, description)
-                FirebaseFirestore.getInstance().collection("Notice Chairman").document(title).set(chairmanNoticeModel1).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        startActivity(Intent(this, NoticiesChairmanSide::class.java))
+                var chairmanNoticeModel1 = userEmail?.let { it1 -> ChairmanNoticeModel(title, description, it1) }
+                if (chairmanNoticeModel1 != null) {
+                    FirebaseFirestore.getInstance().collection("Notice Chairman").document(title).set(chairmanNoticeModel1).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            startActivity(Intent(this, NoticiesChairmanSide::class.java))
+                        }
                     }
                 }
             }

@@ -37,7 +37,9 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
 
         Log.d("TAG", "onCreate: "+arrayList)
        // Log.d("TAG", "onCreate: "+arrayylist)
-        query = FirebaseFirestore.getInstance().collection("Maintenance")
+        var fireuser=FirebaseAuth.getInstance().currentUser
+        var user= fireuser?.email
+        query = FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",user)
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvoptions)
         viewBinding.rvChairmanMaintenanceView.adapter = firebaseRecyclerAdapter

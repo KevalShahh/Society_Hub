@@ -16,4 +16,5 @@ class UserModel1(
         var chairmanpass: String = "",
         var chairmanconfirmpass: String = "",
         var status:String="",
+        var societystatus:String="",
 )

@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,19 +22,19 @@ import java.util.*
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-lateinit var query: Query
-lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
-lateinit var recyclerView: RecyclerView
-lateinit var textInputEditText: TextInputEditText
+
 /**
  * A simple [Fragment] subclass.
- * Use the [MaintenanceFragment.newInstance] factory method to
+ * Use the [UserMaintenanceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MaintenanceFragment : Fragment() {
+class UserMaintenanceFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
+    lateinit var recyclerView: RecyclerView
+    lateinit var textInputEditText: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +46,13 @@ class MaintenanceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView=view.findViewById(R.id.rv_chairman_maintenance)
-        textInputEditText=view.findViewById(R.id.til_edt_month_member_maintenance)
-        var e= activity?.intent?.getStringExtra("email")
-        Log.d("TAG", "onViewCreated: "+e)
-        query = FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",e)
+        recyclerView=view.findViewById(R.id.rv_member_maintenance_user_side)
+        textInputEditText=view.findViewById(R.id.til_edt_month_member_maintenance_user)
+
+        var fireuser=FirebaseAuth.getInstance().currentUser
+        var user= fireuser?.email
+       // query = m?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
+        query= user?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = context?.let { FirebaseRecyclerAdapter2(it, rvoptions) }!!
         recyclerView.adapter = firebaseRecyclerAdapter
@@ -90,15 +91,7 @@ class MaintenanceFragment : Fragment() {
             dialog.show()
         }
     }
-    override fun onStart() {
-        super.onStart()
-        firebaseRecyclerAdapter.startListening()
-    }
 
-    override fun onStop() {
-        super.onStop()
-        firebaseRecyclerAdapter.stopListening()
-    }
     private fun getMaintenanceList(maintenanceMonth: String) {
         val options: FirestoreRecyclerOptions<MaintenanceModel>
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
@@ -114,10 +107,19 @@ class MaintenanceFragment : Fragment() {
         firebaseRecyclerAdapter.notifyDataSetChanged()
     }
 
+    override fun onStart() {
+        super.onStart()
+        firebaseRecyclerAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseRecyclerAdapter.stopListening()
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maintenance, container, false)
+        return inflater.inflate(R.layout.fragment_user_maintenance, container, false)
     }
 
     companion object {
@@ -127,12 +129,12 @@ class MaintenanceFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MaintenanceFragment.
+         * @return A new instance of fragment UserMaintenanceFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                MaintenanceFragment().apply {
+                UserMaintenanceFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)

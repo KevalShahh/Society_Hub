@@ -20,7 +20,10 @@ class SocietyChairmanPaymentInfo : AppCompatActivity() {
         viewBinding.tvNameSocietyInfo.text=intent.getStringExtra("societyname")
         viewBinding.tvAddressSocietyInfo.text=intent.getStringExtra("societyaddress")
         viewBinding.tvViewChairmanPaymentinfo.setOnClickListener {
-            startActivity(Intent(this,ViewChairmanPaymentInfo::class.java))
+           var intent=Intent(this,ViewChairmanPaymentInfo::class.java)
+            intent.putExtra("email",viewBinding.tvEmailChairmanPaymentinfo.text)
+            intent.putExtra("society",viewBinding.tvNameSocietyInfo.text)
+            startActivity(intent)
         }
     }
 }

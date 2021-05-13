@@ -1,7 +1,9 @@
 package com.example.societyhub
 
+import android.accessibilityservice.GestureDescription
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.Nullable
@@ -12,6 +14,9 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import com.payumoney.core.PayUmoneySdkInitializer
+import com.payumoney.core.entity.TransactionResponse
+import com.payumoney.sdkui.ui.utils.PayUmoneyFlowManager
 import org.json.JSONException
 import org.json.JSONObject
 import java.security.MessageDigest
@@ -19,8 +24,102 @@ import java.security.NoSuchAlgorithmException
 import kotlin.experimental.and
 
 class PaymentActivity : AppCompatActivity() {
-    /*
-    var theRandomNum = (Math.random() * Math.pow(10.0, 10.0)).toLong()
+    private val paymentParamBuilder = PayUmoneySdkInitializer.PaymentParam.Builder()
+    private var paymentParam: PayUmoneySdkInitializer.PaymentParam? = null
+     val key = "5nx6SBqi"
+     val salt = "xail53tFjr"
+     val merchantId = "7419349"
+     var transactionId = "text123456"
+     var amount = "10"
+     var charges = ""
+     var totalAmount = "10"
+     var firstname = "Keval"
+     var email = "kevalshah.17.ce@iite.indusuni.ac.in"
+
+    private val productName = "Society Hub Demo"
+    private val productInfo = "Society Hub Demo"
+    private var generatedHash: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_payment)
+
+        val hashSeq =
+                "$key|$transactionId|$totalAmount|$productInfo|$firstname|$email|||||||||||$salt"
+        generatedHash = hashCal("sha512", hashSeq)
+        paymentParamBuilder.setAmount(totalAmount)                          // Payment amount
+                .setTxnId(transactionId)                                             // Transaction ID
+                .setPhone("9106955017")                                           // User Phone number
+                .setProductName(productName)                   // Product Name or description
+                .setFirstName(firstname)                              // User First name
+                .setEmail(email)
+                .setsUrl("https://www.payumoney.com/mobileapp/payumoney/success.php") // Success URL (surl)
+                .setfUrl("https://www.payumoney.com/mobileapp/payumoney/failure.php") //Failure URL (furl)                 //Failure URL (furl)
+                .setUdf1("")
+                .setUdf2("")
+                .setUdf3("")
+                .setUdf4("")
+                .setUdf5("")
+                .setUdf6("")
+                .setUdf7("")
+                .setUdf8("")
+                .setUdf9("")
+                .setUdf10("")
+                .setIsDebug(true)                              // Integration environment - true (Debug)/ false(Production)
+                .setKey(key)                        // Merchant key
+                .setMerchantId(merchantId);
+
+        paymentParam = paymentParamBuilder.build()
+        paymentParam?.setMerchantHash(generatedHash)
+
+        PayUmoneyFlowManager.startPayUMoneyFlow(
+                paymentParam,
+                this,
+                R.style.AppTheme_default,
+                true
+        )
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result Code is -1 send from Payumoney activity
+        Log.d("PaymentActivity", "request code $requestCode resultcode $resultCode")
+        if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_OK && data != null) {
+            val transactionResponse: TransactionResponse =
+                    data.getParcelableExtra(PayUmoneyFlowManager.INTENT_EXTRA_TRANSACTION_RESPONSE)!!
+            if (transactionResponse.getPayuResponse() != null) {
+                if (transactionResponse.transactionStatus
+                                .equals(TransactionResponse.TransactionStatus.SUCCESSFUL)
+                ) {
+                    Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show()
+                    Log.d("TAG", "onActivityResult: "+transactionResponse.getPayuResponse())
+                } else {
+                    Toast.makeText(this, "Payment Failed" + transactionResponse.message, Toast.LENGTH_SHORT).show()
+                }
+
+                // Response from Payumoney
+                val payuResponse: String = transactionResponse.getPayuResponse()
+
+                // Response from SURl and FURL
+                val merchantResponse: String = transactionResponse.transactionDetails
+            } else {
+                Log.d("PaymentActivity", "Both objects are null!")
+                Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
+    private fun hashCal(type: String?, hashString: String): String? {
+        return MessageDigest
+                .getInstance(type)
+                .digest(hashString.toByteArray())
+                .fold("", { str, it -> str + "%02x".format(it) })
+    }
+}
+
+
+
+  /*  var theRandomNum = (Math.random() * Math.pow(10.0, 10.0)).toLong()
     var key = "XETbPtgK"
     var salt = "H14dXamrO3"
     var merchantId = "8024519"
@@ -48,7 +147,7 @@ class PaymentActivity : AppCompatActivity() {
         if (user != null) {
             val amount = intent.getStringExtra("totalprice")
             val hashSequence = "$key|$transactionId|$amount|$productInfo|$firstname|$email|$udf1|$udf2|$udf3|$udf4|$udf5||||||$salt"
-            val builder: PayUmoneySdkInitializer.PaymentParam.Builder = Builder()
+            val builder: GestureDescription.Builder = GestureDescription.Builder()
             builder.setAmount(amount) // Payment amount
                     .setTxnId(transactionId) // Transaction ID//
                     .setPhone("9104261130") // User Phone number
@@ -219,7 +318,5 @@ class PaymentActivity : AppCompatActivity() {
             }
             return hash.toString()
         }
-    }
+    }*/
 
-     */
-}

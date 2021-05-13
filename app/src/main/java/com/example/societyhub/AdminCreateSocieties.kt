@@ -80,7 +80,7 @@ class AdminCreateSocieties : AppCompatActivity() {
             }
             if (!pattern.matcher(viewBinding1.etAdminCreateSocietyChairmanMobile.text).matches() || (viewBinding1.etAdminCreateSocietyChairmanMobile.text?.toString()?.length!! <10) || (viewBinding1.etAdminCreateSocietyChairmanMobile.text!!.toString().length>10)){
                 a=false
-                viewBinding1.etAdminCreateSocietyChairmanMobile.error="Enter 10 Digit Mobile Number"
+                viewBinding1.etAdminCreateSocietyChairmanMobile.error="Enter valid Mobile Number"
             }
             if (viewBinding1.etAdminCreateSocietyChairmanFlate.text?.isEmpty() == true){
                 a=false
@@ -90,7 +90,7 @@ class AdminCreateSocieties : AppCompatActivity() {
                 a=false
                 viewBinding1.etAdminCreateSocietyChairmanPass.error="Enter Password"
             }
-            if (viewBinding1.etAdminCreateSocietyChairmanPass.text!=viewBinding1.etAdminCreateSocietyChairmanConfirmPass.text){
+            if ((viewBinding1.etAdminCreateSocietyChairmanPass.text.toString()) != (viewBinding1.etAdminCreateSocietyChairmanConfirmPass.text.toString())){
                 a=false
                 viewBinding1.etAdminCreateSocietyChairmanConfirmPass.error="Password Doesn't Match"
             }

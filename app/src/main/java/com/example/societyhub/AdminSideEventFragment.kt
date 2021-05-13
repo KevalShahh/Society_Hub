@@ -24,22 +24,34 @@ class AdminSideEventFragment() : Fragment(){
 
         var fireuser= FirebaseAuth.getInstance().currentUser
         var user= fireuser?.email
-
-        if (user != null) {
+        var s= activity?.intent?.getStringExtra("society")
+        query= s?.let { FirebaseFirestore.getInstance().collection("Society").document(it).collection("Events") }!!
+        val rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
+        firebaseRecyclerAdapter= context?.let { FirebaseRecyclerAdapter(it,rvoptions) }!!
+        recyclerView.adapter=firebaseRecyclerAdapter
+        recyclerView.layoutManager= LinearLayoutManager(context)
+       /* if (user != null) {
             FirebaseFirestore.getInstance().collection("Users").document(user).get().addOnSuccessListener {
                 if (it.exists()){
                     var model=it.toObject(UserModel1::class.java)
                     var s= model?.flat
-                    query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
-                    val rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
-                    firebaseRecyclerAdapter= context?.let { FirebaseRecyclerAdapter(it,rvoptions) }!!
-                    recyclerView.adapter=firebaseRecyclerAdapter
-                    recyclerView.layoutManager= LinearLayoutManager(context)
+                   // query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
+
                     firebaseRecyclerAdapter.startListening()
                     firebaseRecyclerAdapter.notifyDataSetChanged()
                 }
             }
-        }
+        }*/
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseRecyclerAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        firebaseRecyclerAdapter.stopListening()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val rootView: View =inflater.inflate(R.layout.activity_admin_side_event_fragment,container,false)

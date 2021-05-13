@@ -99,14 +99,16 @@ class CreateMaintenanceChairmanSide : AppCompatActivity() {
                             Toast.makeText(this, "maintenance created", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    var maintenanceModel1 = MaintenanceModel(month11, duedate11, amount11, latecharges11, description111)
-                    FirebaseFirestore.getInstance().collection("Maintenance").document(month11).set(maintenanceModel1).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
-                            var intent = Intent(this, MaintenanceListChairmanSide::class.java)
-                            intent.putExtra("month11", month11)
-                            intent.putExtra("array", firestorerecyclerAdapter.arraylist)
-                            startActivity(intent)
+                    var maintenanceModel1 = userEmail?.let { it1 -> MaintenanceModel(month11, duedate11, amount11, latecharges11, description111, it1) }
+                    if (maintenanceModel1 != null) {
+                        FirebaseFirestore.getInstance().collection("Maintenance").document(month11).set(maintenanceModel1).addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
+                                var intent = Intent(this, MaintenanceListChairmanSide::class.java)
+                                intent.putExtra("month11", month11)
+                                intent.putExtra("array", firestorerecyclerAdapter.arraylist)
+                                startActivity(intent)
+                            }
                         }
                     }
                 }

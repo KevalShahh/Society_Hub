@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:22.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:22.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.payumoney.sdkui:plug-n-play:1.6.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
     implementation 'com.google.firebase:firebase-storage:19.2.2'

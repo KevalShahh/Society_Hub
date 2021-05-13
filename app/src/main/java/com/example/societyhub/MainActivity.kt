@@ -20,10 +20,27 @@ import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity()  {
     private lateinit var viewBinding:ActivityMainBinding
+    lateinit var preferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        preferences=getSharedPreferences("user", MODE_PRIVATE)
+        editor=preferences.edit()
+        if(preferences.contains("adminemail")){
+            startActivity(Intent(this@MainActivity,Admin::class.java))
+            finish()
+        }
+        if(preferences.contains("chairmanemail")){
+            startActivity(Intent(this@MainActivity,Chairman::class.java))
+            finish()
+        }
+        if(preferences.contains("useremail")){
+            startActivity(Intent(this@MainActivity,User::class.java))
+            finish()
+        }
 
         val regex="^[\\w-_\\.+]*[\\w-\\.]\\.(chairman)\\@([\\w]+\\.)+[\\w]+[\\w]$"
         var pattern=Pattern.compile(regex)
@@ -72,8 +89,10 @@ class MainActivity : AppCompatActivity()  {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pass).addOnCompleteListener {
                 if (it.isSuccessful) {
                         if (email == "admin@gmail.com") {
+                            getadmindata(email)
                             Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, Admin::class.java))
+                            finish()
                         }
                         else if (pattern.matcher(email).matches()) {
                             FirebaseFirestore.getInstance().collection("Users").whereEqualTo("chairmanemail",email).addSnapshotListener { value, error ->
@@ -81,8 +100,10 @@ class MainActivity : AppCompatActivity()  {
                                     for (i in 0..value.size()-1){
                                         var s=value.documents.get(i).get("status").toString()
                                         if (s=="active") {
+                                            getchairmandata(email)
                                             Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
                                             startActivity(Intent(this, Chairman::class.java))
+                                            finish()
                                         }
                                         else Toast.makeText(this, "Contact Admin to Activate", Toast.LENGTH_SHORT).show()
                                     }
@@ -95,8 +116,10 @@ class MainActivity : AppCompatActivity()  {
                                     for (i in 0..value.size()-1){
                                         var s=value.documents.get(i).get("status").toString()
                                         if (s=="active") {
+                                            getuserdata(email)
                                             Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
                                             startActivity(Intent(this,User::class.java))
+                                            finish()
                                         }
                                         else Toast.makeText(this, "Contact Chairman To Activate", Toast.LENGTH_SHORT).show()
                                     }
@@ -108,5 +131,41 @@ class MainActivity : AppCompatActivity()  {
         }
 
     }
+    private fun getadmindata(email: String) {
+        editor.putString("adminemail","admin@gmail.com")
+        editor.apply()
+    }
+
+    private fun getuserdata(email: String) {
+        FirebaseFirestore.getInstance().collection("Members").whereEqualTo("email",email).addSnapshotListener { value, error ->
+            if(value!=null && !value.isEmpty){
+                for(i in 0..value.size()-1){
+                    var model: UserModel? =value.documents.get(i).toObject(UserModel::class.java)
+                    editor.putString("useremail", model?.email)
+                    editor.apply()
+                }
+            }
+            if (error!=null){
+                Toast.makeText(this, ""+error.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getchairmandata(email: String) {
+        FirebaseFirestore.getInstance().collection("Users").whereEqualTo("chairmanemail",email).addSnapshotListener { value, error ->
+            if(value!=null && !value.isEmpty){
+                for(i in 0..value.size()-1){
+                    var model: UserModel1? =value.documents.get(i).toObject(UserModel1::class.java)
+                    editor.putString("chairmanemail", model?.chairmanemail)
+                    editor.apply()
+                }
+
+            }
+            if (error!=null){
+                Toast.makeText(this, ""+error.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 }
 

@@ -1,26 +1,24 @@
 package com.example.societyhub
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MyAdapter2(var context: Context, supportFragmentManager: FragmentManager, var tabCount: Int) : FragmentPagerAdapter(supportFragmentManager) {
+class MyAdapter4(var context: PendingFragment, fragmentManager: FragmentManager?, var tabCount: Int) : FragmentPagerAdapter(fragmentManager!!) {
     override fun getCount(): Int {
-        return tabCount
+     return tabCount
     }
 
     override fun getItem(position: Int): Fragment {
         when(position){
             0->{
-                return EventFragment()
+                return UserEventFragment()
             }
             1->{
-                return MemberMaintenanceFragment()
+                return UserMaintenanceFragment()
             }
             else->return null!!
         }
     }
 
 }
-
