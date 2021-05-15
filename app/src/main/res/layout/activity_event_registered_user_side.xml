@@ -45,7 +45,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event Start:"
+        android:text="Event Start"
         android:textSize="15dp"
         android:layout_margin="5dp"
         />
@@ -72,7 +72,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Event End:"
+        android:text="Event End"
         android:textSize="15dp"
         android:layout_margin="5dp"
         />
@@ -86,7 +86,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Charges Paid:"
+        android:text="Charges Paid"
         android:textSize="15dp"
         android:layout_margin="5dp"
         />
