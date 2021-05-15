@@ -27,6 +27,7 @@ class Societies : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding=ActivitySocietiesBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         query=FirebaseFirestore.getInstance().collection("Society")
         var rvOptions=FirestoreRecyclerOptions.Builder<UserModel1>().setQuery(query,UserModel1::class.java).build()
         fireStoreRecyclerAdapter=FireStoreRecycleAdapter(this,rvOptions)
@@ -35,6 +36,11 @@ class Societies : AppCompatActivity() {
         viewBinding.adminCreateSocieties.setOnClickListener {
             startActivity(Intent(this, AdminCreateSocieties::class.java))
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
     override fun onStart() {
         super.onStart()

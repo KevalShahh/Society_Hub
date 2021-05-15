@@ -13,7 +13,7 @@ class MyAdapter2(var context: Context, supportFragmentManager: FragmentManager, 
     override fun getItem(position: Int): Fragment {
         when(position){
             0->{
-                return EventFragment()
+                return MemberEventFragment()
             }
             1->{
                 return MemberMaintenanceFragment()

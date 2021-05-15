@@ -1,7 +1,9 @@
 package com.example.societyhub
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import com.example.societyhub.databinding.ActivityAttendEventNotRegisteredChairmanSideBinding
 
@@ -12,6 +14,7 @@ class AttendEventNotRegisteredChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityAttendEventNotRegisteredChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.chairmanSideAttendEventNameNotRegistered.text=intent.getStringExtra("eventTitle")
         viewBinding.chairmanSideAttendEventInstructionNotRegistered.text=intent.getStringExtra("eventDescription")
         viewBinding.chairmanSideAttendEventStartDateNotRegistered.text=intent.getStringExtra("eventStartDate")
@@ -34,5 +37,18 @@ class AttendEventNotRegisteredChairmanSide : AppCompatActivity() {
                viewBinding.chairmanSideTvTotalChargesAttendEventNotRegistered.text=(qnt* c!!).toString()
            }
         }
+        viewBinding.chairmanSideAttendEventPayNowBtn.setOnClickListener {
+            var intent=Intent(this,PaymentActivity::class.java)
+            var a=viewBinding.chairmanSideTvTotalChargesAttendEventNotRegistered.text.toString()
+            Log.d("TAG", "onCreate: "+a)
+            intent.putExtra("amount",a)
+            intent.putExtra("eventname",viewBinding.chairmanSideAttendEventNameNotRegistered.text.toString())
+            startActivity(intent)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

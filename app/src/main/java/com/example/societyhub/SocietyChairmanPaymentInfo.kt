@@ -13,6 +13,7 @@ class SocietyChairmanPaymentInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivitySocietyChairmanPaymentInfoBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.tvNameChairmanPaymentinfo.text=intent.getStringExtra("name")
         viewBinding.tvMobileChairmanPaymentinfo.text=intent.getStringExtra("mobile")
         viewBinding.tvEmailChairmanPaymentinfo.text=intent.getStringExtra("email")
@@ -25,5 +26,10 @@ class SocietyChairmanPaymentInfo : AppCompatActivity() {
             intent.putExtra("society",viewBinding.tvNameSocietyInfo.text)
             startActivity(intent)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

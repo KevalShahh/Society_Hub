@@ -155,6 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:id="@+id/chairman_side_attend_event_pay_now_btn"
         android:text="PAY NOW"
         android:layout_margin="5dp"
         />

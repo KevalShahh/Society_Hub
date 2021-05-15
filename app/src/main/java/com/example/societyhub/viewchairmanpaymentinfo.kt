@@ -12,6 +12,7 @@ class ViewChairmanPaymentInfo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_chairman_payment_info)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         tabLayout=findViewById(R.id.tablayout_viewchairman)
         viewPager=findViewById(R.id.viewpager_viewchairman)
 
@@ -38,5 +39,10 @@ class ViewChairmanPaymentInfo : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

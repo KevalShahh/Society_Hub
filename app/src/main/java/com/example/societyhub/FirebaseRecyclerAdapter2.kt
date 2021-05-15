@@ -24,13 +24,25 @@ class FirebaseRecyclerAdapter2(var context: Context, rvoptions: FirestoreRecycle
         holder.textView2.text=model.DueDate
         holder.textView3.text=model.Amount
         holder.textView4.text=model.getCreatedDateFormat()
+        if (model.paid=="Yes"){
+            holder.textView5.text="Paid"
+        }else holder.textView5.text="Not Paid"
         holder.textInputLayout.setOnClickListener {
-            var intent=Intent(context,MaintenanceNotPaidChairmanSide::class.java)
-            intent.putExtra("MaintenanceMonth",model.MaintenanceMonth)
-            intent.putExtra("AmountDue",model.Amount)
-            intent.putExtra("DueDate",model.DueDate)
-            intent.putExtra("LateCharges",model.LateCharges)
-            context.startActivity(intent)
+            if (holder.textView5.text=="Not Paid") {
+                var intent = Intent(context, MaintenanceNotPaidChairmanSide::class.java)
+                intent.putExtra("MaintenanceMonth", model.MaintenanceMonth)
+                intent.putExtra("AmountDue", model.Amount)
+                intent.putExtra("DueDate", model.DueDate)
+                intent.putExtra("LateCharges", model.LateCharges)
+                context.startActivity(intent)
+            }
+            else{
+                var intent = Intent(context, MaintenancePaidChairmanSide::class.java)
+                intent.putExtra("MaintenanceMonth", model.MaintenanceMonth)
+                intent.putExtra("AmountDue", model.Amount)
+                intent.putExtra("paidAt",model.getPaidDateFormat())
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -42,4 +54,5 @@ class MaintenanceViewHolder(view:View):RecyclerView.ViewHolder(view) {
     val textView3:TextView=view.findViewById(R.id.chairman_maintenance_amount)
     val textView4:TextView=view.findViewById(R.id.chairman_maintenance_requested_date_and_time)
     var textInputLayout:TextInputLayout=view.findViewById(R.id.til_custom_maintenance_details_chairman_side)
+    var textView5:TextView=view.findViewById(R.id.chairman_maintenance_paid_or_not)
 }

@@ -11,6 +11,7 @@ class ViewMemberPaymentInfo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_member_payment_info)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         tabLayout=findViewById(R.id.tablayout_viewmember)
         viewPager=findViewById(R.id.viewpager_viewmember)
 
@@ -37,5 +38,10 @@ class ViewMemberPaymentInfo : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

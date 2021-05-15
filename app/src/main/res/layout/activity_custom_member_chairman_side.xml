@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name:"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -30,6 +31,7 @@
                 android:layout_weight="1"
                 android:id="@+id/tv_member_name_chairmen"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -49,12 +51,14 @@
                 android:layout_height="wrap_content"
                 android:text="Email:"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_member_email_chairmen"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -67,12 +71,14 @@
                 android:layout_height="wrap_content"
                 android:text="Mobile:"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_member_mobile_chairmen"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -85,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="Type:"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -92,6 +99,7 @@
                 android:id="@+id/tv_member_type_chairmen"
                 android:text="Member"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -104,12 +112,14 @@
                 android:layout_height="wrap_content"
                 android:text="Status:"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_member_status_chairmen"
                 android:textSize="20dp"
+                android:layout_margin="5dp"
                 />
         </LinearLayout>
     </com.google.android.material.textfield.TextInputLayout>

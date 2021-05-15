@@ -50,7 +50,7 @@ class MemberMaintenanceFragment : Fragment() {
         var e= activity?.intent?.getStringExtra("email")
         Log.d("TAG", "onViewCreated: "+e)
         var m= activity?.intent?.getStringExtra("member")
-        query = m?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
+        query = m?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance").whereEqualTo("paid","Yes") }!!
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = context?.let { FirebaseRecyclerAdapter2(it, rvoptions) }!!
         recyclerView.adapter = firebaseRecyclerAdapter

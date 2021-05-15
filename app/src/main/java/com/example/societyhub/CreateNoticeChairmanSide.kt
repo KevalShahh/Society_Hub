@@ -16,26 +16,26 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 class CreateNoticeChairmanSide : AppCompatActivity() {
-    lateinit var viewBinding:ActivityCreateNoticeChairmanSideBinding
-    lateinit var query:Query
-    lateinit var firestorerecyclerAdapter:FireStoreRecycleAdapter9
+    lateinit var viewBinding: ActivityCreateNoticeChairmanSideBinding
+    lateinit var query: Query
+    lateinit var firestorerecyclerAdapter: FireStoreRecycleAdapter9
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding= ActivityCreateNoticeChairmanSideBinding.inflate(LayoutInflater.from(this))
+        viewBinding = ActivityCreateNoticeChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
-        var firebaseUser= FirebaseAuth.getInstance().currentUser
-        var userEmail= firebaseUser?.email
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        var firebaseUser = FirebaseAuth.getInstance().currentUser
+        var userEmail = firebaseUser?.email
         if (userEmail != null) {
             FirebaseFirestore.getInstance().collection("Users").document(userEmail).get().addOnSuccessListener {
-                if (it.exists()){
-                    var userModel1=it.toObject(UserModel1::class.java)
-                    var s= userModel1?.flat
-                    query=FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society",s)
-                    var rvoptions=FirestoreRecyclerOptions.Builder<UserModel>().setQuery(query,UserModel::class.java).build()
-                    firestorerecyclerAdapter=FireStoreRecycleAdapter9(this,rvoptions)
-                    viewBinding.rvChairmanCreateNotice.adapter=firestorerecyclerAdapter
-                    viewBinding.rvChairmanCreateNotice.layoutManager=LinearLayoutManager(this)
+                if (it.exists()) {
+                    var userModel1 = it.toObject(UserModel1::class.java)
+                    var s = userModel1?.flat
+                    query = FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society", s)
+                    var rvoptions = FirestoreRecyclerOptions.Builder<UserModel>().setQuery(query, UserModel::class.java).build()
+                    firestorerecyclerAdapter = FireStoreRecycleAdapter9(this, rvoptions)
+                    viewBinding.rvChairmanCreateNotice.adapter = firestorerecyclerAdapter
+                    viewBinding.rvChairmanCreateNotice.layoutManager = LinearLayoutManager(this)
                     firestorerecyclerAdapter.startListening()
                     firestorerecyclerAdapter.notifyDataSetChanged()
                 }
@@ -43,16 +43,15 @@ class CreateNoticeChairmanSide : AppCompatActivity() {
         }
 
 
-        viewBinding.chairmanCreateNoticeCheckbox.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+        viewBinding.chairmanCreateNoticeCheckbox.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                if(isChecked){
-                    for(i in 0 until viewBinding.rvChairmanCreateNotice.childCount){
-                        viewBinding.rvChairmanCreateNotice.getChildAt(i).findViewById<CheckBox>(R.id.rv_create_notice_checkbox).isChecked= true
+                if (isChecked) {
+                    for (i in 0 until viewBinding.rvChairmanCreateNotice.childCount) {
+                        viewBinding.rvChairmanCreateNotice.getChildAt(i).findViewById<CheckBox>(R.id.rv_create_notice_checkbox).isChecked = true
                     }
-                }
-                else{
-                    for(i in 0 until viewBinding.rvChairmanCreateNotice.childCount){
-                        viewBinding.rvChairmanCreateNotice.getChildAt(i).findViewById<CheckBox>(R.id.rv_create_notice_checkbox).isChecked= false
+                } else {
+                    for (i in 0 until viewBinding.rvChairmanCreateNotice.childCount) {
+                        viewBinding.rvChairmanCreateNotice.getChildAt(i).findViewById<CheckBox>(R.id.rv_create_notice_checkbox).isChecked = false
                     }
                 }
             }
@@ -60,16 +59,16 @@ class CreateNoticeChairmanSide : AppCompatActivity() {
 
         viewBinding.chairmanCreateNoticeSendNotice.setOnClickListener {
             var a = true
-            if(viewBinding.chairmanCreateNoticeTitle.text.isEmpty()){
-                a=false
-                viewBinding.chairmanCreateNoticeTitle.error="Enter Title"
+            if (viewBinding.chairmanCreateNoticeTitle.text.isEmpty()) {
+                a = false
+                viewBinding.chairmanCreateNoticeTitle.error = "Enter Title"
             }
-            if(viewBinding.chairmanCreateNoticeDescription.text.isEmpty()){
-                a=false
-                viewBinding.chairmanCreateNoticeDescription.error="Enter Description"
+            if (viewBinding.chairmanCreateNoticeDescription.text.isEmpty()) {
+                a = false
+                viewBinding.chairmanCreateNoticeDescription.error = "Enter Description"
             }
-            if(firestorerecyclerAdapter.arraylist.isEmpty()){
-                a=false
+            if (firestorerecyclerAdapter.arraylist.isEmpty()) {
+                a = false
                 Toast.makeText(this, "Please Select Atleast One User", Toast.LENGTH_SHORT).show()
             }
 
@@ -104,13 +103,9 @@ class CreateNoticeChairmanSide : AppCompatActivity() {
         }
 
     }
-  /*  override fun onStart() {
-        super.onStart()
-        firestorerecyclerAdapter.startListening()
-    }
 
-    override fun onStop() {
-        super.onStop()
-        firestorerecyclerAdapter.stopListening()
-    }*/
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
 }

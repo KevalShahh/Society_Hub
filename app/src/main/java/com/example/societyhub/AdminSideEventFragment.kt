@@ -25,7 +25,7 @@ class AdminSideEventFragment() : Fragment(){
         var fireuser= FirebaseAuth.getInstance().currentUser
         var user= fireuser?.email
         var s= activity?.intent?.getStringExtra("society")
-        query= s?.let { FirebaseFirestore.getInstance().collection("Society").document(it).collection("Events") }!!
+        query= s?.let { FirebaseFirestore.getInstance().collection("Society").document(it).collection("Events").whereEqualTo("paid","Yes") }!!
         val rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
         firebaseRecyclerAdapter= context?.let { FirebaseRecyclerAdapter(it,rvoptions) }!!
         recyclerView.adapter=firebaseRecyclerAdapter

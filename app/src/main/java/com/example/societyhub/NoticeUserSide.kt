@@ -19,7 +19,7 @@ class NoticeUserSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityNoticeUserSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var currentuser= FirebaseAuth.getInstance().currentUser
         var email= currentuser?.email
 
@@ -38,5 +38,10 @@ class NoticeUserSide : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firestorerecycleadapter.stopListening()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

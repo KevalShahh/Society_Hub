@@ -16,6 +16,7 @@ class ChairmanEditProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityChairmanEditProfileBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var regex="^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}\$"
         var pattern= Pattern.compile(regex)
         var cemail=intent.getStringExtra("chairmanemail")
@@ -73,5 +74,10 @@ class ChairmanEditProfile : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

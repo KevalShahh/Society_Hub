@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chairman Information"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:layout_margin="10dp"
         />
     <View
@@ -28,11 +28,13 @@
             android:layout_height="wrap_content"
             android:text="Name:"
             android:layout_margin="5dp"
-            android:textSize="25sp"
+            android:textSize="20dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             android:id="@+id/tv_name_chairman_paymentinfo"
             />
     </LinearLayout>
@@ -45,11 +47,13 @@
             android:layout_height="wrap_content"
             android:text="Mobile:"
             android:layout_margin="5dp"
-            android:textSize="25sp"
+            android:textSize="20dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             android:id="@+id/tv_Mobile_chairman_paymentinfo"
             />
     </LinearLayout>
@@ -61,12 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email:"
-            android:textSize="25sp"
+            android:textSize="20dp"
             android:layout_margin="5dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
             android:id="@+id/tv_email_chairman_paymentinfo"
             />
     </LinearLayout>
@@ -78,11 +84,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type:"
-            android:textSize="25sp"
+            android:textSize="20dp"
             android:layout_margin="5dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
             android:id="@+id/tv_type_chairman_paymentinfo"/>
     </LinearLayout>
     <TextView
@@ -90,7 +98,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_view_chairman_paymentinfo"
         android:text="View Chairman Payment info>"
-        android:textSize="20sp"
+        android:textSize="18dp"
         android:layout_marginLeft="137dp"/>
     <View
         android:layout_width="match_parent"
@@ -102,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Society Information"
-        android:textSize="30sp"
+        android:textSize="25dp"
         android:layout_margin="10dp"/>
     <View
         android:layout_width="match_parent"
@@ -119,10 +127,12 @@
             android:layout_height="wrap_content"
             android:text="Name:"
             android:layout_margin="5dp"
-            android:textSize="25sp"/>
+            android:textSize="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
             android:id="@+id/tv_name_society_info"/>
     </LinearLayout>
     <LinearLayout
@@ -134,10 +144,12 @@
             android:layout_height="wrap_content"
             android:text="Address:"
             android:layout_margin="5dp"
-            android:textSize="25sp"/>
+            android:textSize="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
             android:id="@+id/tv_address_society_info"/>
     </LinearLayout>
 

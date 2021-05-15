@@ -18,6 +18,7 @@ class AdminUpdateSociety : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityAdminUpdateSocietyBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val flat = intent.getStringExtra("flat")
         viewBinding.edtAdminUpdateSocietyFlat.setText(intent.getStringExtra("flat"))
         viewBinding.edtAdminUpdateSocietyArea.setText(intent.getStringExtra("area"))
@@ -41,5 +42,10 @@ class AdminUpdateSociety : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

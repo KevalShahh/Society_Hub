@@ -28,13 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Name:"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_margin="5dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_margin="5dp"
         android:id="@+id/member_name_chairman_side"
         />
@@ -48,14 +48,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mobile:"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_margin="5dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/member_Mobile_chairman_side"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_margin="5dp"
             />
     </LinearLayout>
@@ -69,14 +69,14 @@
             android:layout_height="wrap_content"
             android:text="Email:"
             android:layout_margin="5dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/member_email_chairman_side"
             android:layout_margin="5dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -89,14 +89,14 @@
             android:layout_height="wrap_content"
             android:text="Type:"
             android:layout_margin="5dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/member_type_chairman_side"
             android:layout_margin="5dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
     </LinearLayout>
     <View
@@ -109,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View Payment Info >"
+        android:textSize="20dp"
         android:id="@+id/tv_view_paymentinfo"
         android:gravity="end"
         />

@@ -12,6 +12,7 @@ class EventNotRegisteredChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityEventNotRegisteredChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.chairmanSideEventNameNotRegistered.text=intent.getStringExtra("eventTitle")
         viewBinding.chairmanSideEventInstructionNotRegistered.text=intent.getStringExtra("eventDescription")
         viewBinding.chairmanSideEventStartDateNotRegistered.text=intent.getStringExtra("eventStartDate")
@@ -30,5 +31,10 @@ class EventNotRegisteredChairmanSide : AppCompatActivity() {
             intent.putExtra("eventCharges",viewBinding.chairmanSideEventChargesNotRegistered.text)
             startActivity(intent)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

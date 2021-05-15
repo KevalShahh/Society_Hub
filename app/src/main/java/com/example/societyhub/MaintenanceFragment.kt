@@ -51,7 +51,7 @@ class MaintenanceFragment : Fragment() {
         textInputEditText=view.findViewById(R.id.til_edt_month_member_maintenance)
         var e= activity?.intent?.getStringExtra("email")
         Log.d("TAG", "onViewCreated: "+e)
-        query = FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",e)
+        query = FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",e).whereEqualTo("paid","Yes")
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = context?.let { FirebaseRecyclerAdapter2(it, rvoptions) }!!
         recyclerView.adapter = firebaseRecyclerAdapter

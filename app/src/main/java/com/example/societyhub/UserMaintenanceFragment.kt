@@ -52,7 +52,7 @@ class UserMaintenanceFragment : Fragment() {
         var fireuser=FirebaseAuth.getInstance().currentUser
         var user= fireuser?.email
        // query = m?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
-        query= user?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
+        query= user?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance").whereEqualTo("paid","") }!!
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = context?.let { FirebaseRecyclerAdapter2(it, rvoptions) }!!
         recyclerView.adapter = firebaseRecyclerAdapter

@@ -31,7 +31,7 @@ class CreateMaintenanceChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityCreateMaintenanceChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var firebaseUser= FirebaseAuth.getInstance().currentUser
         var userEmail= firebaseUser?.email
         if (userEmail != null) {
@@ -164,6 +164,11 @@ class CreateMaintenanceChairmanSide : AppCompatActivity() {
                     },year,month,date)
             dialog.show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
   /*  override fun onStart() {
         super.onStart()

@@ -16,13 +16,14 @@ class AdminNoticeInformation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityAdminNoticeInformationBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.adminNoticeTitle.text=intent.getStringExtra("title1")
         viewBinding.adminNoticeDescription.text=intent.getStringExtra("description1")
         viewBinding.adminNoticeCreatedAt.text=intent.getStringExtra("createdAt1")
 
         var title=intent.getStringExtra("title1")
         Log.d("TAG", "onCreate: "+title)
-        FirebaseFirestore.getInstance().collection("Users").addSnapshotListener { value, error ->
+       /* FirebaseFirestore.getInstance().collection("Users").addSnapshotListener { value, error ->
             if (value != null) {
                 for (i in 0..(value.size()-1)){
                     var arrayList=ArrayList<String>()
@@ -40,6 +41,11 @@ class AdminNoticeInformation : AppCompatActivity() {
                 }
 
             }
-        }
+        }*/
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

@@ -25,16 +25,35 @@ class FirebaseRecyclerAdapter(val context: Context, options: FirestoreRecyclerOp
         holder.textview5.text=model.eventStartTime
         holder.textview6.text=model.eventEndTime
         holder.textview7.text=model.eventAmount
+        if (model.paid=="Yes"){
+            holder.textView8.text="Registered"
+        }else holder.textView8.text="Not Registered"
+
         holder.textInputLayout.setOnClickListener {
-            var intent=Intent(context,EventNotRegisteredChairmanSide::class.java)
-            intent.putExtra("eventTitle",model.eventTitle)
-            intent.putExtra("eventDescription",model.eventDescription)
-            intent.putExtra("eventStartDate",model.eventStartDate)
-            intent.putExtra("eventStartTime",model.eventStartTime)
-            intent.putExtra("eventEndDate",model.eventEndDate)
-            intent.putExtra("eventEndTime",model.eventEndTime)
-            intent.putExtra("eventCharges",model.eventAmount)
-            context.startActivity(intent)
+            if (holder.textView8.text=="Not Registered") {
+                var intent = Intent(context, EventNotRegisteredChairmanSide::class.java)
+                intent.putExtra("eventTitle", model.eventTitle)
+                intent.putExtra("eventDescription", model.eventDescription)
+                intent.putExtra("eventStartDate", model.eventStartDate)
+                intent.putExtra("eventStartTime", model.eventStartTime)
+                intent.putExtra("eventEndDate", model.eventEndDate)
+                intent.putExtra("eventEndTime", model.eventEndTime)
+                intent.putExtra("eventCharges", model.eventAmount)
+//            intent.putExtra("eventpaymentstatus",holder.textView8.text.toString())
+                context.startActivity(intent)
+            }
+            else{
+                var intent = Intent(context, EventRegisteredChairmanSide::class.java)
+                intent.putExtra("eventTitle", model.eventTitle)
+                intent.putExtra("eventDescription", model.eventDescription)
+                intent.putExtra("eventStartDate", model.eventStartDate)
+                intent.putExtra("eventStartTime", model.eventStartTime)
+                intent.putExtra("eventEndDate", model.eventEndDate)
+                intent.putExtra("eventEndTime", model.eventEndTime)
+                intent.putExtra("eventCharges", model.eventAmount)
+                intent.putExtra("eventRegisteredAt",model.getCreatedDateFormat())
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -49,4 +68,5 @@ class EventViewHolder(view: View) : RecyclerView.ViewHolder(view){
     var textview6:TextView=view.findViewById(R.id.event_end_time)
     var textview7:TextView=view.findViewById(R.id.event_charge)
     var textInputLayout:TextInputLayout=view.findViewById(R.id.til_chairman_event)
+    var textView8:TextView=view.findViewById(R.id.event_registered)
 }

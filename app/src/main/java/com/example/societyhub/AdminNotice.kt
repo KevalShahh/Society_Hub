@@ -18,6 +18,7 @@ class AdminNotice : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityAdminNoticeBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.floatingAddButton.setOnClickListener {
             startActivity(Intent(this,AdminCreateNotice::class.java))
         }
@@ -34,5 +35,10 @@ class AdminNotice : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firestorerecyclerAdapter.stopListening()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Society Information"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:layout_margin="10dp"
         android:textColor="@color/teal_700"
         />
@@ -35,8 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_society_name_society"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:textSize="20dp"
             />
     </LinearLayout>
@@ -56,8 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_address_society"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:textSize="20dp"
             />
     </LinearLayout>
@@ -72,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chairman Information"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:layout_margin="10dp"
         android:textColor="@color/teal_700"
         />
@@ -97,6 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_name_chairman"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
     </LinearLayout>
 
@@ -115,6 +115,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_mobile_chairman"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
     </LinearLayout>
 
@@ -134,6 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_email_chairman"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
             />
     </LinearLayout>
     <View
@@ -148,7 +152,7 @@
         android:layout_height="wrap_content"
         android:text="Society Member"
         android:layout_margin="10dp"
-        android:textSize="20dp"
+        android:textSize="25dp"
         />
     <View
         android:layout_width="match_parent"

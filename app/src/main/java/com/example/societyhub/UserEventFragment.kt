@@ -27,7 +27,7 @@ class UserEventFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var query: Query
-    lateinit var firebaseRecyclerAdapter:FirebaseRecyclerAdapter
+    lateinit var firebaseRecyclerAdapter:FirebaseRecyclerAdapter6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +47,10 @@ class UserEventFragment : Fragment() {
                 if (it.exists()){
                     var model=it.toObject(UserModel::class.java)
                     var s= model?.society
-                    query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
+                  //  query= s?.let { it1 -> FirebaseFirestore.getInstance().collection("Society").document(it1).collection("Events") }!!
+                    query=FirebaseFirestore.getInstance().collection("Members").document(user).collection("received events").whereEqualTo("paid","")
                     var rvoptions= FirestoreRecyclerOptions.Builder<EventModel>().setQuery(query,EventModel::class.java).build()
-                    firebaseRecyclerAdapter=FirebaseRecyclerAdapter(view.context, rvoptions)
+                    firebaseRecyclerAdapter=FirebaseRecyclerAdapter6(view.context, rvoptions)
                     eventsUserSide.adapter=firebaseRecyclerAdapter
                     eventsUserSide.layoutManager= LinearLayoutManager(view.context)
                     firebaseRecyclerAdapter.startListening()

@@ -20,7 +20,7 @@ class EventsChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityEventsChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var fireuser=FirebaseAuth.getInstance().currentUser
         var user= fireuser?.email
         if (user != null) {
@@ -43,6 +43,11 @@ class EventsChairmanSide : AppCompatActivity() {
         viewBinding.fbCreateEvents.setOnClickListener {
             startActivity(Intent(this,CreateEventsChairmanSide::class.java))
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     /*override fun onStart() {

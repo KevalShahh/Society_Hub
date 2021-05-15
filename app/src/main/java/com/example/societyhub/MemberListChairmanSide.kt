@@ -21,7 +21,7 @@ class MemberListChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMemberListChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var firebaseUser=FirebaseAuth.getInstance().currentUser
         var userEmail= firebaseUser?.email
         Log.d("TAG", "onCreate: "+userEmail)
@@ -45,4 +45,9 @@ class MemberListChairmanSide : AppCompatActivity() {
             }
         }
 }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
 }

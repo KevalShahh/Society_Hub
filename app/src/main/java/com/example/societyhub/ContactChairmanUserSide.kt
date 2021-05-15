@@ -1,5 +1,7 @@
 package com.example.societyhub
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +15,11 @@ class ContactChairmanUserSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityContactChairmanUserSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        viewBinding.chairmanMobileContactChairman.setOnClickListener {
+            var intent= Intent(Intent.ACTION_CALL, Uri.parse("tel:"+viewBinding.chairmanMobileContactChairman.text))
+            startActivity(intent)
+        }
         var fireuser=FirebaseAuth.getInstance().currentUser
         var useremail= fireuser?.email
         if (useremail != null) {
@@ -34,5 +40,10 @@ class ContactChairmanUserSide : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

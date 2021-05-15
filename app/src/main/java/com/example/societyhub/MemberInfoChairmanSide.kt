@@ -12,7 +12,7 @@ class MemberInfoChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMemberInfoChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.memberNameChairmanSide.text=intent.getStringExtra("MemberName")
         viewBinding.memberMobileChairmanSide.text=intent.getStringExtra("MemberMobile")
         viewBinding.memberEmailChairmanSide.text=intent.getStringExtra("MemberEmail")
@@ -22,5 +22,10 @@ class MemberInfoChairmanSide : AppCompatActivity() {
             intent.putExtra("member",viewBinding.memberEmailChairmanSide.text)
             startActivity(intent)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

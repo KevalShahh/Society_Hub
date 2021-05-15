@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,6 +22,9 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.experimental.and
 
 class PaymentActivity : AppCompatActivity() {
@@ -30,9 +34,9 @@ class PaymentActivity : AppCompatActivity() {
      val salt = "xail53tFjr"
      val merchantId = "7419349"
      var transactionId = "text123456"
-     var amount = "10"
+
      var charges = ""
-     var totalAmount = "10"
+
      var firstname = "Keval"
      var email = "kevalshah.17.ce@iite.indusuni.ac.in"
 
@@ -43,7 +47,8 @@ class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
-
+        var amount = intent.getStringExtra("amount")
+        var totalAmount = intent.getStringExtra("amount")
         val hashSeq =
                 "$key|$transactionId|$totalAmount|$productInfo|$firstname|$email|||||||||||$salt"
         generatedHash = hashCal("sha512", hashSeq)
@@ -81,7 +86,9 @@ class PaymentActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        var fireuser=FirebaseAuth.getInstance().currentUser
+        var user= fireuser?.email
+        var en=intent.getStringExtra("eventname")
         // Result Code is -1 send from Payumoney activity
         Log.d("PaymentActivity", "request code $requestCode resultcode $resultCode")
         if (requestCode == PayUmoneyFlowManager.REQUEST_CODE_PAYMENT && resultCode == RESULT_OK && data != null) {
@@ -92,9 +99,32 @@ class PaymentActivity : AppCompatActivity() {
                                 .equals(TransactionResponse.TransactionStatus.SUCCESSFUL)
                 ) {
                     Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show()
+                    if (user != null) {
+                        FirebaseFirestore.getInstance().collection("Users").document(user).addSnapshotListener { value, error ->
+                            var m= value?.toObject(UserModel1::class.java)
+                            var mm= m?.flat
+                            if (mm != null) {
+                                if (en != null) {
+                                    FirebaseFirestore.getInstance().collection("Society").document(mm).collection("Events").document(en).addSnapshotListener { value, error ->
+                                        var model= value?.toObject(EventModel::class.java)
+                                        if (model != null) {
+                                            model.paid="Yes"
+                                            var map=HashMap<String,String>()
+                                            map.put("paid","Yes")
+                                          //  map.put("registeredAt",model.getCreatedDateFormat())
+                                            FirebaseFirestore.getInstance().collection("Society").document(mm).collection("Events").document(en).update(map as Map<String, Any>)
+                                            var intent=Intent(this,EventsChairmanSide::class.java)
+                                            startActivity(intent)
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     Log.d("TAG", "onActivityResult: "+transactionResponse.getPayuResponse())
                 } else {
                     Toast.makeText(this, "Payment Failed" + transactionResponse.message, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this,AttendEventNotRegisteredChairmanSide::class.java))
                 }
 
                 // Response from Payumoney
@@ -105,7 +135,7 @@ class PaymentActivity : AppCompatActivity() {
             } else {
                 Log.d("PaymentActivity", "Both objects are null!")
                 Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
-
+                startActivity(Intent(this,AttendEventNotRegisteredChairmanSide::class.java))
             }
         }
     }

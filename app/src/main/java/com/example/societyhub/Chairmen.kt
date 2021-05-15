@@ -23,6 +23,7 @@ class Chairmen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityChairmenBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         query=FirebaseFirestore.getInstance().collection("Society")
         var rvoptions=FirestoreRecyclerOptions.Builder<UserModel1>().setQuery(query,UserModel1::class.java).build()
         fireStoreRecyclerAdapter=FireStoreRecycleAdapter2(this,rvoptions)
@@ -57,6 +58,11 @@ class Chairmen : AppCompatActivity() {
 
         })
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     private fun processSearch(newText: String?) {

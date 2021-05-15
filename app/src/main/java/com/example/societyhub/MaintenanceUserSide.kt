@@ -18,12 +18,12 @@ import java.util.*
 
 class MaintenanceUserSide : AppCompatActivity() {
     lateinit var viewBinding:ActivityMaintenanceUserSideBinding
-    lateinit var firestorerecycleadapter:FirebaseRecyclerAdapter2
+    lateinit var firestorerecycleadapter:FirebaseRecyclerAdapter4
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMaintenanceUserSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.tilSelectMonthUserSide.setOnClickListener {
             monthPicker()
         }
@@ -33,7 +33,7 @@ class MaintenanceUserSide : AppCompatActivity() {
         query= email?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
         //query= FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",email)
         val rvoptions= FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query,MaintenanceModel::class.java).build()
-        firestorerecycleadapter= FirebaseRecyclerAdapter2(this,rvoptions)
+        firestorerecycleadapter= FirebaseRecyclerAdapter4(this,rvoptions)
         viewBinding.rvUserMaintenanceList.adapter= firestorerecycleadapter
         viewBinding.rvUserMaintenanceList.layoutManager= LinearLayoutManager(this)
     }
@@ -85,5 +85,10 @@ class MaintenanceUserSide : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firestorerecycleadapter.stopListening()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

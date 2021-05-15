@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateEventsChairmanSide : AppCompatActivity() {
     lateinit var viewBinding:ActivityCreateEventsChairmanSideBinding
@@ -28,6 +29,7 @@ class CreateEventsChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityCreateEventsChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.eventStartDateChairmanSide.setOnClickListener {
             var c= Calendar.getInstance()
             var year=c.get(Calendar.YEAR)
@@ -140,6 +142,8 @@ class CreateEventsChairmanSide : AppCompatActivity() {
                     startActivity(Intent(this, EventsChairmanSide::class.java))
                 }
             }*/
+
+
             var fireuser = FirebaseAuth.getInstance().currentUser
             var user = fireuser?.email
             if (user != null) {
@@ -148,6 +152,15 @@ class CreateEventsChairmanSide : AppCompatActivity() {
                         var model = it.toObject(UserModel1::class.java)
                         var s = model?.flat
                         if (s != null) {
+                            FirebaseFirestore.getInstance().collection("Members").whereEqualTo("society",s).get().addOnSuccessListener {
+                                var m=it.documents
+                                for (i in 0..m.size-1){
+                                    var mm=it.documents.get(i).id
+                                    FirebaseFirestore.getInstance().collection("Members").document(mm).collection("received events").document(EventTitle).set(eventModel).addOnCompleteListener {
+                                        Toast.makeText(this, "event stored", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
                             FirebaseFirestore.getInstance().collection("Society").document(s).collection("Events").document(EventTitle).set(eventModel).addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     Toast.makeText(this, "event created", Toast.LENGTH_SHORT).show()
@@ -161,5 +174,10 @@ class CreateEventsChairmanSide : AppCompatActivity() {
 
         }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

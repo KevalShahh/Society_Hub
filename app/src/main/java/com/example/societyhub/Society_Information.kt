@@ -19,6 +19,7 @@ class Society_Information : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivitySocietyInformationBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var s=intent.getStringExtra("society_name")
         viewBinding.tvSocietyNameSociety.setText((intent.getStringExtra("society_name")))
         viewBinding.tvAddressSociety.setText(intent.getStringExtra("address"))
@@ -41,5 +42,10 @@ class Society_Information : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firestoreRecycleadapter.stopListening()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

@@ -13,7 +13,7 @@ class NoticiesChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityNoticiesChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.tabLayoutNoticeChairmanSide.addTab(viewBinding.tabLayoutNoticeChairmanSide.newTab().setText("SENT"))
         viewBinding.tabLayoutNoticeChairmanSide.addTab(viewBinding.tabLayoutNoticeChairmanSide.newTab().setText("RECEIVED"))
         viewBinding.tabLayoutNoticeChairmanSide.tabGravity=TabLayout.GRAVITY_FILL
@@ -45,5 +45,10 @@ class NoticiesChairmanSide : AppCompatActivity() {
         viewBinding.fbCreateNoticeChairmanSide.setOnClickListener {
             startActivity(Intent(this,CreateNoticeChairmanSide::class.java))
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

@@ -31,6 +31,7 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMaintenanceListChairmanSideBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var m=intent.getStringExtra("month11")
         var arrayList=intent.getStringExtra("array")
         //var arrayylist=intent.getStringArrayListExtra("arrayy")
@@ -52,6 +53,11 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
             monthPicker()
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     override fun onStart() {

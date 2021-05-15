@@ -19,6 +19,7 @@ class UserEditProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityUserEditProfileBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var uemail=intent.getStringExtra("email")
         viewBinding.userFirstName.setText(intent.getStringExtra("firstName"))
         viewBinding.userLastName.setText(intent.getStringExtra("lastName"))
@@ -65,5 +66,10 @@ class UserEditProfile : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

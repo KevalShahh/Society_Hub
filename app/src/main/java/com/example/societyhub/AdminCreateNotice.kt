@@ -26,7 +26,7 @@ class AdminCreateNotice : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityAdminCreateNoticeBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         query=FirebaseFirestore.getInstance().collection("Society")
         var rvoptions=FirestoreRecyclerOptions.Builder<UserModel1>().setQuery(query,UserModel1::class.java).build()
         firestorerecyclerAdapter=FireStoreRecycleAdapter3(this,rvoptions)
@@ -100,6 +100,11 @@ class AdminCreateNotice : AppCompatActivity() {
             }
         }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
     override fun onStart() {
         super.onStart()

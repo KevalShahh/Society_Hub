@@ -11,9 +11,14 @@ class ChairmanNoticeInformation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityChairmanNoticeInformationBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewBinding.chairmanNoticeTitleSent.text=intent.getStringExtra("title1")
         viewBinding.chairmanNoticeDescriptionSent.text=intent.getStringExtra("description1")
         viewBinding.chairmanNoticeCreatedAtSent.text=intent.getStringExtra("createdAt1")
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

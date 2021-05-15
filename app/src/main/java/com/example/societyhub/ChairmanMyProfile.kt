@@ -16,7 +16,7 @@ class ChairmanMyProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityChairmanMyProfileBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var firebaseUser=FirebaseAuth.getInstance().currentUser
         var userEmail= firebaseUser?.email
         if (userEmail != null) {
@@ -51,6 +51,11 @@ class ChairmanMyProfile : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }
 

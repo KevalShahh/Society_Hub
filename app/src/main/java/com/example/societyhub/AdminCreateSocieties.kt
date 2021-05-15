@@ -19,6 +19,7 @@ class AdminCreateSocieties : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding1 = ActivityAdminCreateSocietiesBinding.inflate(LayoutInflater.from(this))
         setContentView(viewBinding1.root)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         var regex="^(\\+91[\\-\\s]?)?[0]?(91)?[789]\\d{9}\$"
         var pattern= Pattern.compile(regex)
         var arrayList = ArrayList<String>()
@@ -131,5 +132,10 @@ class AdminCreateSocieties : AppCompatActivity() {
 
         }
     }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

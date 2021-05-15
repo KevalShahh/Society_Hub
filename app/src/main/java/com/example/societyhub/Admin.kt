@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.societyhub.databinding.ActivityAdminBinding
 
@@ -41,13 +42,23 @@ class Admin : AppCompatActivity()  {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.btn_logout -> {
-                editor.clear()
-                editor.apply()
-                Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this,MainActivity::class.java))
-                finish()
+                showAlertbox()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun showAlertbox() {
+        AlertDialog.Builder(this@Admin)
+                .setTitle(R.string.app_name)
+                .setMessage("Are you sure you want to Logout?")
+                .setPositiveButton("Yes") { _, _ ->
+                    editor.clear()
+                    editor.apply()
+                    startActivity(Intent(this@Admin, MainActivity::class.java))
+                    Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                .setNegativeButton("No", null)
+                .show()
     }
 }
