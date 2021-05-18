@@ -19,6 +19,9 @@ import java.util.*
 class MaintenanceUserSide : AppCompatActivity() {
     lateinit var viewBinding:ActivityMaintenanceUserSideBinding
     lateinit var firestorerecycleadapter:FirebaseRecyclerAdapter4
+    var currentuser= FirebaseAuth.getInstance().currentUser
+    var email= currentuser?.email
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding= ActivityMaintenanceUserSideBinding.inflate(LayoutInflater.from(this))
@@ -27,8 +30,7 @@ class MaintenanceUserSide : AppCompatActivity() {
         viewBinding.tilSelectMonthUserSide.setOnClickListener {
             monthPicker()
         }
-        var currentuser= FirebaseAuth.getInstance().currentUser
-        var email= currentuser?.email
+
       //  FirebaseFirestore.getInstance().collection("maintenance").document().collection("sentTo").whereEqualTo("useremail",email)
         query= email?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
         //query= FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",email)
@@ -67,6 +69,7 @@ class MaintenanceUserSide : AppCompatActivity() {
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
                 .setQuery(FirebaseFirestore.getInstance()
                         .collection("Maintenance")
+                        //.collection("Members").document(email!!).collection("received maintenance")
                         .orderBy("maintenanceMonth")
                         .startAt(maintenanceMonth)
                         .endAt(maintenanceMonth + "\uf8ff"), MaintenanceModel::class.java)

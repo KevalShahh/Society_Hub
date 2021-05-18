@@ -27,6 +27,9 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
     lateinit var query: Query
     lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
     lateinit var searchView: SearchView
+    var fireuser=FirebaseAuth.getInstance().currentUser
+    var user= fireuser?.email
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMaintenanceListChairmanSideBinding.inflate(LayoutInflater.from(this))
@@ -38,8 +41,7 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
 
         Log.d("TAG", "onCreate: "+arrayList)
        // Log.d("TAG", "onCreate: "+arrayylist)
-        var fireuser=FirebaseAuth.getInstance().currentUser
-        var user= fireuser?.email
+
         query = FirebaseFirestore.getInstance().collection("Maintenance").whereEqualTo("useremail",user)
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
         firebaseRecyclerAdapter = FirebaseRecyclerAdapter2(this, rvoptions)
@@ -104,7 +106,7 @@ class MaintenanceListChairmanSide : AppCompatActivity() {
         val options: FirestoreRecyclerOptions<MaintenanceModel>
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
                 .setQuery(FirebaseFirestore.getInstance()
-                .collection("Maintenance")
+                .collection("Maintenance").whereEqualTo("useremail",user)
                 .orderBy("maintenanceMonth")
                 .startAt(maintenanceMonth)
                 .endAt(maintenanceMonth + "\uf8ff"),MaintenanceModel::class.java)

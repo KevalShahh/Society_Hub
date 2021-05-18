@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:id="@+id/admin_create_notice_line2"
-        android:background="#FFBB86FC"
+        android:background="@color/teal_700"
         app:layout_constraintTop_toBottomOf="@+id/admin_create_notice_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

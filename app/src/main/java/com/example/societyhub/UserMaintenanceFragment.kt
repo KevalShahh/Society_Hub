@@ -35,6 +35,8 @@ class UserMaintenanceFragment : Fragment() {
     lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
     lateinit var recyclerView: RecyclerView
     lateinit var textInputEditText: TextInputEditText
+    var fireuser=FirebaseAuth.getInstance().currentUser
+    var user= fireuser?.email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +50,6 @@ class UserMaintenanceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView=view.findViewById(R.id.rv_member_maintenance_user_side)
         textInputEditText=view.findViewById(R.id.til_edt_month_member_maintenance_user)
-
-        var fireuser=FirebaseAuth.getInstance().currentUser
-        var user= fireuser?.email
        // query = m?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance") }!!
         query= user?.let { FirebaseFirestore.getInstance().collection("Members").document(it).collection("received maintenance").whereEqualTo("paid","") }!!
         var rvoptions = FirestoreRecyclerOptions.Builder<MaintenanceModel>().setQuery(query, MaintenanceModel::class.java).build()
@@ -97,6 +96,7 @@ class UserMaintenanceFragment : Fragment() {
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
                 .setQuery(FirebaseFirestore.getInstance()
                         .collection("Maintenance")
+                        //.collection("Members").document(user!!).collection("received maintenance").whereEqualTo("paid","")
                         .orderBy("maintenanceMonth")
                         .startAt(maintenanceMonth)
                         .endAt(maintenanceMonth + "\uf8ff"), MaintenanceModel::class.java)

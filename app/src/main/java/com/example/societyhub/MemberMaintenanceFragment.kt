@@ -35,6 +35,7 @@ class MemberMaintenanceFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var textInputEditText: TextInputEditText
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -95,6 +96,7 @@ class MemberMaintenanceFragment : Fragment() {
         options = FirestoreRecyclerOptions.Builder<MaintenanceModel>()
                 .setQuery(FirebaseFirestore.getInstance()
                         .collection("Maintenance")
+                        .whereEqualTo("paid","Yes")
                         .orderBy("maintenanceMonth")
                         .startAt(maintenanceMonth)
                         .endAt(maintenanceMonth + "\uf8ff"), MaintenanceModel::class.java)

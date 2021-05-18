@@ -27,6 +27,7 @@ lateinit var query: Query
 lateinit var firebaseRecyclerAdapter: FirebaseRecyclerAdapter2
 lateinit var recyclerView: RecyclerView
 lateinit var textInputEditText: TextInputEditText
+
 /**
  * A simple [Fragment] subclass.
  * Use the [MaintenanceFragment.newInstance] factory method to
